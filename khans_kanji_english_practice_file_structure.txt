@@ -1,0 +1,43 @@
+public/
+├── docs/                       # Excel files (raw data sources)
+│   ├── kanji_n5.xlsx (Developed)
+│   ├── kanji_n4.xlsx (Developed)
+│   └── ...
+src/
+├── assets/                     # Images, icons, static assets
+│   └── images/
+├── components/                 # Reusable UI components (buttons, dropdowns, etc.)
+│   └── ui/
+│       ├── Dropdown.tsx
+│       ├── RadioList.tsx
+│       ├── ScoreBoard.tsx
+│       └── Timer.tsx
+├── features/                   # Feature modules (acts like 'Controllers' in MVC)
+│   └── kanjiTest/                   # Test feature (entire test logic, views, state)
+│       ├── index.tsx
+│       ├── EnglishToJapanese.tsx
+│       ├── JapaneseToEnglish.tsx
+│       ├── utils/
+│       │   ├── kanjiUtils.ts    # shuffle, filter, generate question set
+│       │   └── scoring.ts
+│       └── hooks/
+│           └── useKanjiLoader.ts (Developed)  # Load Excel, convert to JSON, combine
+├── shared/                     # Shared interfaces, constants, helpers
+│   ├── types/
+│   │   ├── enums/
+│   │   │   ├── index.ts (Developed)
+│   │   │   └── JLPTLevel.ts (Developed)
+│   │   └── interfaces/
+│   │       ├── index.ts (Developed)
+│   │       └── KanjiType.ts (Developed)
+│   ├── constants/
+│   │   ├── index.ts (Developed)
+│   │   └── kanjiExcelPaths.ts (Developed)
+│   └── utils/
+│       └── excelToJson.ts       # Optional: loader script or logic
+├── styles/
+│   └── index.css
+├── App.tsx
+├── main.tsx
+├── index.html
+└── README.md (Developed)
