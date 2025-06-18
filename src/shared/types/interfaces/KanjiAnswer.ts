@@ -1,0 +1,7 @@
+import type { AnswerGroup } from '@/shared/types/interfaces';
+
+/** A complete answer object with both meaning and reading */
+export type KanjiAnswer = {
+    meaning: AnswerGroup;
+    reading: AnswerGroup;
+  };

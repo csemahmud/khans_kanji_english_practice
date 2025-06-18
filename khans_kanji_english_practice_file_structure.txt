@@ -2,7 +2,9 @@ public/
 ├── docs/                       # Excel files (raw data sources)
 │   ├── kanji_n5.xlsx (Developed)
 │   ├── kanji_n4.xlsx (Developed)
-│   └── ...
+│   ├── kanji_n3.xlsx (Developed)
+│   ├── kanji_n2.xlsx (Developed)
+│   └── kanji_n2.xlsx (Developed)
 src/
 ├── assets/                     # Images, icons, static assets
 │   └── images/
@@ -18,7 +20,8 @@ src/
 │       ├── EnglishToJapanese.tsx
 │       ├── JapaneseToEnglish.tsx
 │       ├── utils/
-│       │   ├── kanjiUtils.ts    # shuffle, filter, generate question set
+│       │   ├── excelUtils.ts (Developed)
+│       │   ├── kanjiUtils.ts (Developed)    # shuffle, filter, generate question set
 │       │   └── scoring.ts
 │       └── hooks/
 │           └── useKanjiLoader.ts (Developed)  # Load Excel, convert to JSON, combine
@@ -26,10 +29,12 @@ src/
 │   ├── types/
 │   │   ├── enums/
 │   │   │   ├── index.ts (Developed)
-│   │   │   └── JLPTLevel.ts (Developed)
+│   │   │   ├── JLPTLevel.ts (Developed)
+│   │   │   └── QuestionMode.ts (Developed)
 │   │   └── interfaces/
 │   │       ├── index.ts (Developed)
-│   │       └── KanjiType.ts (Developed)
+│   │       ├── KanjiType.ts (Developed)
+│   │       └── KanjiQuestion.ts (Developed)
 │   ├── constants/
 │   │   ├── index.ts (Developed)
 │   │   └── kanjiExcelPaths.ts (Developed)
