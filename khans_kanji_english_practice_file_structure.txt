@@ -4,21 +4,28 @@ public/
 │   ├── kanji_n4.xlsx (Developed)
 │   ├── kanji_n3.xlsx (Developed)
 │   ├── kanji_n2.xlsx (Developed)
-│   └── kanji_n2.xlsx (Developed)
+│   └── kanji_n1.xlsx (Developed)
 src/
 ├── assets/                     # Images, icons, static assets
 │   └── images/
 ├── components/                 # Reusable UI components (buttons, dropdowns, etc.)
 │   └── ui/
-│       ├── Dropdown.tsx
-│       ├── RadioList.tsx
-│       ├── ScoreBoard.tsx
-│       └── Timer.tsx
+│       ├── feedback/
+│       │   ├── ScoreBoard.tsx (Developed)
+│       │   ├── Timer.tsx (Developed)
+│       │   └── index.tsx (Developed)
+│       ├── input/
+│       │   ├── RadioList.tsx (Developed)
+│       │   ├── Dropdown.tsx (Developed)
+│       │   └── index.tsx (Developed)
+│       ├── visual/
+│       │   ├── Card.tsx (Developed)
+│       │   ├── IllustratedImageBox.tsx (Developed)
+│       │   └── index.tsx (Developed)
+│       ├── Button.tsx (Developed)
+│       └── index.tsx (Developed)
 ├── features/                   # Feature modules (acts like 'Controllers' in MVC)
-│   └── kanjiTest/                   # Test feature (entire test logic, views, state)
-│       ├── index.tsx
-│       ├── EnglishToJapanese.tsx
-│       ├── JapaneseToEnglish.tsx
+│   └── KanjiTest.tsx                   # Test feature (entire test logic, views, state)
 │       ├── utils/
 │       │   ├── excelUtils.ts (Developed)
 │       │   ├── kanjiUtils.ts (Developed)    # shuffle, filter, generate question set
@@ -32,9 +39,13 @@ src/
 │   │   │   ├── JLPTLevel.ts (Developed)
 │   │   │   └── QuestionMode.ts (Developed)
 │   │   └── interfaces/
-│   │       ├── index.ts (Developed)
-│   │       ├── KanjiType.ts (Developed)
-│   │       └── KanjiQuestion.ts (Developed)
+│   │       ├── kanji/
+│   │       │   ├── AnswerGroup.ts (Developed)
+│   │       │   ├── index.ts (Developed)
+│   │       │   ├── KanjiType.ts (Developed)
+│   │       │   ├── KanjiQuestion.ts (Developed)
+│   │       │   └── KanjiAnswer.ts (Developed)
+│   │       └── index.ts (Developed)
 │   ├── constants/
 │   │   ├── index.ts (Developed)
 │   │   └── kanjiExcelPaths.ts (Developed)
