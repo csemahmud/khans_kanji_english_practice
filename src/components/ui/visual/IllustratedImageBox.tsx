@@ -1,14 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
-import type { KanjiType } from '@/shared/types/interfaces';
+import type { KanjiQuestion } from '@/shared/types/interfaces';
 
 interface IllustratedImageBoxProps {
-  kanji: KanjiType;
+  kanjiQuestion: KanjiQuestion;
   className?: string;
 }
 
-export const IllustratedImageBox: React.FC<IllustratedImageBoxProps> = ({ kanji, className = "" }) => {
-  if (!kanji.imageUrl || kanji.imageUrl.trim() === "") return null;
+export const IllustratedImageBox: React.FC<IllustratedImageBoxProps> = ({ kanjiQuestion, className = "" }) => {
+  if (!kanjiQuestion.imageUrl || kanjiQuestion.imageUrl.trim() === "") return null;
 
   return (
     <motion.div
@@ -18,14 +18,14 @@ export const IllustratedImageBox: React.FC<IllustratedImageBoxProps> = ({ kanji,
       transition={{ duration: 0.3 }}
     >
       <div className="text-white text-sm mb-2 font-medium">
-        Illustration for: <span className="text-green-400 text-lg">{kanji.kanji}</span>
+        Illustration for: <span className="text-green-400 text-lg">{kanjiQuestion.prompt}</span>
       </div>
       <div className="w-full aspect-video bg-gray-700 rounded-lg overflow-hidden flex items-center justify-center">
         
-        {kanji.imageUrl ? (
+        {kanjiQuestion.imageUrl ? (
             <img
-            src={kanji.imageUrl}
-            alt={`Kanji Illustration - ${kanji.kanji}`}
+            src={kanjiQuestion.imageUrl}
+            alt={`Kanji Illustration - ${kanjiQuestion.prompt}`}
             className="object-contain max-h-full"
           />
           ) : (
