@@ -25,14 +25,25 @@ const getRandomDistractors = (
   list: KanjiType[],
   currentId: number,
   extractFn: (item: KanjiType) => string,
-  count: number
+  count: number,
+  correctValue: string
 ): string[] => {
-  const pool = list
-    .filter(k => k.id !== currentId)
-    .map(extractFn)
-    .filter((v, i, arr) => arr.indexOf(v) === i); // Remove duplicates
 
-  return shuffleFisherYatesArray(pool).slice(0, count);
+  // Remove duplicates and ensure uniqueness
+  const uniqueDistractors = Array.from(
+    new Set(
+      list
+        .filter(k => k.id !== currentId) // exclude the same item
+        .map(extractFn)
+        .filter(value => value && value !== correctValue) // exclude exact match
+    )
+  );
+
+  if (uniqueDistractors.length < count) {
+    console.warn(`Only ${uniqueDistractors.length} unique distractors available for: ${correctValue}`);
+  }
+
+  return shuffleFisherYatesArray(uniqueDistractors).slice(0, count);
 };
 
 /**
@@ -50,7 +61,14 @@ const ensureEnoughChoices = (
     padded.push(PLACEHOLDER_CHOICE);
   }
 
-  return shuffleFisherYatesArray(padded.slice(0, total));
+  const choices = shuffleFisherYatesArray(padded);
+
+  // Ensure correct answer is present in final slice
+  let finalChoices = choices.slice(0, total);
+  if (!finalChoices.includes(correct)) {
+    finalChoices[Math.floor(Math.random() * total)] = correct;
+  }
+  return shuffleFisherYatesArray(finalChoices);
 };
 
 /**
@@ -70,43 +88,44 @@ export const generateKanjiQuestions = (
   mode: QuestionMode,
   numchoices = DEFAULT_NUM_CHOICES
 ): KanjiQuestion[] => {
-  if (kanjiList.length < numchoices) {
+
+  const uniqueKanjiList = Array.from(new Map(kanjiList.map(k => [k.id, k])).values());
+
+  if (uniqueKanjiList.length < numchoices) {
     console.warn(
-      `Kanji list has only ${kanjiList.length} items. Some questions may have padded choices.`
+      `Kanji list has only ${uniqueKanjiList.length} items. Some questions may have padded choices.`
     );
   }
 
-  return shuffleFisherYatesArray(kanjiList).map((kanjiItem) => {
+  const makeAnswerGroup = (
+    currentId: number,
+    correct: string,
+    distractorFn: (item: KanjiType) => string
+  ): AnswerGroup => {
+    const distractors = getRandomDistractors(
+      uniqueKanjiList, currentId, distractorFn, numchoices - 1, correct
+    );
+    const choices = ensureEnoughChoices(correct, distractors, numchoices);
+    return { correct, choices };
+  };
+
+  return shuffleFisherYatesArray(uniqueKanjiList).map((kanjiItem) => {
     const prompt = mode === QuestionMode.EN_TO_JP
       ? kanjiItem.english
       : kanjiItem.kanji;
 
-    const correctAnswer1 = mode === QuestionMode.EN_TO_JP
-      ? kanjiItem.kanji
-      : kanjiItem.english;
-
-    const distractors1 = getRandomDistractors(
-      kanjiList,
+    const answerGroup1 = makeAnswerGroup(
       kanjiItem.id,
-      mode === QuestionMode.EN_TO_JP ? k => k.kanji : k => k.english,
-      numchoices - 1
+      mode === QuestionMode.EN_TO_JP ? kanjiItem.kanji : kanjiItem.english,
+      mode === QuestionMode.EN_TO_JP ? k => k.kanji : k => k.english
     );
 
-    const choices1 = ensureEnoughChoices(correctAnswer1, distractors1, numchoices);
-
-    const answerGroup1: AnswerGroup = {
-        correct: correctAnswer1,
-        choices: choices1
-    }
-
-    const correctAnswer2 = kanjiItem.hiragana;
-    const distractors2 = getRandomDistractors(kanjiList, kanjiItem.id, k => k.hiragana, numchoices - 1);
-    const choices2 = ensureEnoughChoices(correctAnswer2, distractors2, numchoices);
-
-    const answerGroup2: AnswerGroup = {
-        correct: correctAnswer2,
-        choices: choices2
-    }
+    const hiragana = kanjiItem.hiragana || PLACEHOLDER_CHOICE;
+    const answerGroup2 = makeAnswerGroup(
+      kanjiItem.id,
+      hiragana,
+      k => k.hiragana
+    );
 
     const answer: KanjiAnswer = {
         meaning: answerGroup1,
