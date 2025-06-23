@@ -1,37 +1,44 @@
 public/
 ├── docs/                       # Excel files (raw data sources)
-│   ├── kanji_n5.xlsx (Developed)
-│   ├── kanji_n4.xlsx (Developed)
-│   ├── kanji_n3.xlsx (Developed)
-│   ├── kanji_n2.xlsx (Developed)
-│   └── kanji_n1.xlsx (Developed)
+│   ├── kanji_n5.xlsx (In Progress: To Do Add more Kanji)
+│   ├── kanji_n4.xlsx (In Progress: To Do Add more Kanji)
+│   ├── kanji_n3.xlsx (In Progress: To Do Add more Kanji)
+│   ├── kanji_n2.xlsx (In Progress: To Do Add more Kanji)
+│   └── kanji_n1.xlsx (In Progress: To Do Add more Kanji)
 src/
 ├── assets/                     # Images, icons, static assets
 │   └── images/
 ├── components/                 # Reusable UI components (buttons, dropdowns, etc.)
-│   └── ui/
-│       ├── feedback/
-│       │   ├── ScoreBoard.tsx (Developed)
-│       │   ├── Timer.tsx (Developed)
-│       │   └── index.tsx (Developed)
-│       ├── input/
-│       │   ├── RadioList.tsx (Developed)
-│       │   ├── Dropdown.tsx (Developed)
-│       │   └── index.tsx (Developed)
-│       ├── visual/
-│       │   ├── Card.tsx (Developed)
-│       │   ├── IllustratedImageBox.tsx (Developed)
-│       │   └── index.tsx (Developed)
-│       ├── Button.tsx (Developed)
-│       └── index.tsx (Developed)
+│   ├── ui/
+│   │   ├── feedback/
+│   │   │   ├── ScoreBoard.tsx (Developed)
+│   │   │   ├── Timer.tsx (Developed)
+│   │   │   └── index.tsx (Developed)
+│   │   ├── input/
+│   │   │   ├── RadioList.tsx (Developed)
+│   │   │   ├── Dropdown.tsx (Developed)
+│   │   │   └── index.tsx (Developed)
+│   │   ├── visual/
+│   │   │   ├── Card.tsx (Developed)
+│   │   │   ├── IllustratedImageBox.tsx (Developed)
+│   │   │   └── index.tsx (Developed)
+│   │   ├── Button.tsx (Developed)
+│   │   └── index.tsx (Developed)
+│   └── views/
+│       ├── AnswerChoices.tsx (In Progress: To Do: Integrate RadioList.tsx)
+│       ├── AnswerFeedback.tsx (In Progress: To Do: Integrate ScoreBoard.tsx)
+│       ├── index.tsx (Developed)
+│       └── QuizControls.tsx (In Progress: To Do: Integrate Timer.tsx)
 ├── features/                   # Feature modules (acts like 'Controllers' in MVC)
-│   └── KanjiTest.tsx                   # Test feature (entire test logic, views, state)
+│   └── KanjiTest.tsx (In Progress)                  # Test feature (entire test logic, views, state)
 │       ├── utils/
 │       │   ├── excelUtils.ts (Developed)
 │       │   ├── kanjiUtils.ts (Developed)    # shuffle, filter, generate question set
 │       │   └── scoring.ts
 │       └── hooks/
-│           └── useKanjiLoader.ts (Developed)  # Load Excel, convert to JSON, combine
+│           ├── index.ts (Developed)
+│           ├── useKanjiLoader.ts (Developed)  # Load Excel, convert to JSON, combine
+│           └── useKanjiQuiz.ts (Developed)
 ├── shared/                     # Shared interfaces, constants, helpers
 │   ├── types/
 │   │   ├── enums/

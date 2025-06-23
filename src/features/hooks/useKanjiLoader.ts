@@ -9,7 +9,7 @@ import { loadExcelFile } from '@/features/utils/excelUtils'; // ✅ updated path
 type UseKanjiLoaderResult = {
   kanjiList: KanjiType[];
   isLoading: boolean;
-  error: string | null;
+  error: Error | null;
 };
 
 /**
@@ -21,11 +21,11 @@ type UseKanjiLoaderResult = {
 export const useKanjiLoader = (level: JLPTLevel | null = null): UseKanjiLoaderResult => {
   const [kanjiList, setKanjiList] = useState<KanjiType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
   const idCounterRef = useRef(0);
 
-  const loadKanjiData = async () => {
+  const loadKanjiData = async (): Promise<void> => {
     try {
       setIsLoading(true);
       setError(null);
@@ -33,11 +33,13 @@ export const useKanjiLoader = (level: JLPTLevel | null = null): UseKanjiLoaderRe
 
       if (level && levelFiles[level]) {
         combinedData = await loadExcelFile(levelFiles[level], idCounterRef);
+        console.log("✅ Loaded data for level:", level, combinedData); // ✅ LOG HERE
       } else {
-        for (const filePath of Object.values(levelFiles)) {
-          const data = await loadExcelFile(filePath, idCounterRef);
-          combinedData.push(...data);
-        }
+        const allData = await Promise.all(
+          Object.values(levelFiles).map(filePath => loadExcelFile(filePath, idCounterRef))
+        );
+        combinedData = allData.flat();
+        console.log("✅ Loaded combined data for all levels:", combinedData); // ✅ LOG HERE        
       }
 
       if (combinedData.length === 0) {
@@ -48,11 +50,13 @@ export const useKanjiLoader = (level: JLPTLevel | null = null): UseKanjiLoaderRe
         typeof item.kanji === 'string' && typeof item.hiragana === 'string' && typeof item.english === 'string';
 
       combinedData = combinedData.filter(isValidKanji);
+      console.log("✅ Final kanjiList passed to generateKanjiQuestions:", combinedData); // ✅ LOG HERE
 
       setKanjiList(combinedData);
     } catch (err: any) {
-      console.error('❌ Kanji load failed:', err);
-      setError(`Failed to load kanji data for level ${level ?? 'ALL'}.`);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      console.error('❌ Kanji load failed:', errorMessage);
+      setError(new Error(`Failed to load kanji data for level ${level ?? 'ALL'}: ${errorMessage}`));
     } finally {
       setIsLoading(false);
     }

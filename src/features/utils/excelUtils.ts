@@ -15,7 +15,11 @@ const DEFAULT_SHEET_INDEX = 0;
 
 /**
  * Loads and parses an Excel file into an array of KanjiType.
- * 
+ *
+ * - Normalizes headers to lowercase
+ * - Filters out invalid rows
+ * - Assigns unique IDs using a mutable ref
+ *
  * @param filePath Path to the Excel file
  * @param idCounterRef Mutable ref to assign unique IDs
  * @returns Promise of KanjiType[]
@@ -39,17 +43,42 @@ export const loadExcelFile = async (
       return [];
     }
 
+    // Parse sheet into raw JSON rows
     const jsonData = XLSX.utils.sheet_to_json<ExcelRow>(sheet);
+    console.log("📥 Raw Excel parsed data:");
+    console.log(jsonData);
 
-    return jsonData.map((row: ExcelRow): KanjiType => ({
+    // Normalize headers to lowercase
+    const normalizedRows = jsonData.map((row: any): Partial<KanjiType> =>
+      Object.fromEntries(
+        Object.entries(row).map(([k, v]) => [k.toLowerCase(), v])
+      )
+    );
+
+    // Type guard to ensure row validity
+    const isValidRow = (row: Partial<KanjiType>): row is KanjiType =>
+      typeof row.kanji === 'string' &&
+      typeof row.hiragana === 'string' &&
+      typeof row.english === 'string';
+
+    const validRows = normalizedRows.filter(isValidRow);
+
+    if (validRows.length === 0) {
+      console.warn(`⚠️ No valid kanji rows parsed from file: ${filePath}`);
+    }
+
+    // Transform to KanjiType with ID assignment
+    return validRows.map((row) => ({
       id: idCounterRef.current++,
-      kanji: row.kanji || '',
-      hiragana: row.hiragana || '',
-      english: row.english || '',
+      kanji: row.kanji,
+      hiragana: row.hiragana,
+      english: row.english,
       imageUrl: row.imageUrl || undefined,
     }));
-  } catch (error) {
-    console.error(`❌ Failed to load file ${filePath}:`, error);
+
+  } catch (error: any) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error(`❌ Failed to load Excel file: ${filePath}`, msg);
     return [];
   }
 };
