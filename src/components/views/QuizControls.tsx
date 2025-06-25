@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Dropdown } from '@/components/ui';
 import { QuestionMode, JLPTLevel } from '@/shared/types/enums';
+import Swal from "sweetalert2";
 
 interface Props {
   mode: QuestionMode;
@@ -24,15 +25,31 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel }
         ]}
         selected={mode}
         onChange={(val) => {
-          if (Object.values(QuestionMode).includes(val as QuestionMode)) {
-            setMode(val as QuestionMode);
-          }
+          Swal.fire({
+            title: "Confirm Level Change",
+            text: "Changing Quiz Mode will restart the quiz. Are you sure, you want to change Quiz Mode to : "
+            + ((val === QuestionMode.JP_TO_EN) ? "漢字 TO EN" : "EN TO 漢字" ),
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Change to : " + ((val === QuestionMode.JP_TO_EN) ? "漢字 TO EN" : "EN TO 漢字" ) ,
+            cancelButtonText: "Cancel",
+            customClass: {
+              confirmButton: "px-4 py-2 bg-red-600 text-white rounded",
+              cancelButton: "px-4 py-2 bg-blue-600 text-white rounded",
+            },
+          }).then((result) => {
+            if (result.isConfirmed) {
+              if (Object.values(QuestionMode).includes(val as QuestionMode)) {
+                setMode(val as QuestionMode);
+              }
+            }
+          });
         }}
       />
     </Card>
     <Card
       title="Select JLPT Level"
-      description="Choose Choose from N5 to N1"
+      description="Choose from N5 to N1"
       footer={<span>Selected Level: {level ?? "All Levels Combined"}</span>}
     >
       <Dropdown
@@ -47,11 +64,27 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel }
         ]}
         selected={level}
         onChange={(val) => {
-          if (val === null) {
-            setLevel(null);
-          } else if (Object.values(JLPTLevel).includes(val as JLPTLevel)) {
-            setLevel(val as JLPTLevel);
-          }
+          Swal.fire({
+            title: "Confirm Level Change",
+            text: "Changing JLPT Level will restart the quiz. Are you sure, you want to change to JLPT Level : "
+            + (val ?? "Combined"),
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Change to : " + (val ?? "Combined"),
+            cancelButtonText: "Cancel",
+            customClass: {
+              confirmButton: "px-4 py-2 bg-red-600 text-white rounded",
+              cancelButton: "px-4 py-2 bg-blue-600 text-white rounded",
+            },
+          }).then((result) => {
+            if (result.isConfirmed) {
+              if (val === null) {
+                setLevel(null);
+              } else if (Object.values(JLPTLevel).includes(val as JLPTLevel)) {
+                setLevel(val as JLPTLevel);
+              }
+            }
+          });
         }}
       />
     </Card>

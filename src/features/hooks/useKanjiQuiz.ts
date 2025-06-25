@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { generateKanjiQuestions } from '../utils/kanjiUtils';
-import { QuestionMode, JLPTLevel } from '@/shared/types/enums';
 import type { KanjiQuestion, KanjiType } from '@/shared/types/interfaces';
+import type { QuestionMode } from '@/shared/types/enums';
 
-export const useKanjiQuiz = (kanjiList: KanjiType[]) => {
-  const [mode, setMode] = useState<QuestionMode>(QuestionMode.JP_TO_EN);
-  const [level, setLevel] = useState<JLPTLevel | null>(null);
+export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   const [questions, setQuestions] = useState<KanjiQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedMeaning, setSelectedMeaning] = useState<string | null>(null);
@@ -65,9 +63,6 @@ export const useKanjiQuiz = (kanjiList: KanjiType[]) => {
 
   return {
     mode,
-    setMode,
-    level,
-    setLevel,
     questions,
     currentQuestion,
     currentIndex,

@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, IllustratedImageBox } from '@/components/ui';
 import { QuizControls, AnswerChoices, AnswerFeedback } from '@/components/views';
 import { useKanjiLoader, useKanjiQuiz } from './hooks';
+import { QuestionMode, JLPTLevel } from '@/shared/types/enums';
 
 const KanjiTest: React.FC = () => {
-  const { kanjiList, isLoading, error } = useKanjiLoader(); // assumes auto-fetch or on-load
+  // 🔼 1. Manage mode and level locally
+  const [mode, setMode] = useState<QuestionMode>(QuestionMode.JP_TO_EN);
+  const [level, setLevel] = useState<JLPTLevel | null>(null);
+
+  // 🔄 2. useKanjiLoader re-runs when level changes
+  const { kanjiList, isLoading, error } = useKanjiLoader(level); // assumes auto-fetch or on-load
+  
+  // 🔄 3. Pass kanjiList to quiz hook
   const {
-    mode,
-    setMode,
-    level,
-    setLevel,
     currentQuestion,
     currentIndex,
     handleAnswer,
@@ -20,7 +24,7 @@ const KanjiTest: React.FC = () => {
     setSelectedReading,
     showAnswer,
     score,
-  } = useKanjiQuiz(kanjiList);
+  } = useKanjiQuiz(kanjiList, mode); // Optionally pass mode too if needed
 
   if (isLoading) return (<div className="text-center text-xl mt-8">⏳ Loading kanji data...</div>);
   if (error) return (
@@ -84,3 +88,4 @@ const KanjiTest: React.FC = () => {
 };
 
 export default KanjiTest;
+
