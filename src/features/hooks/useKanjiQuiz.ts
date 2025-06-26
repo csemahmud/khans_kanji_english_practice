@@ -12,6 +12,7 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   const [showAnswer, setShowAnswer] = useState(false);
 
   const currentQuestion = currentIndex < questions.length ? questions[currentIndex] : null;
+  const qLength = questions.length;
 
   useEffect(() => {
     if (kanjiList.length > 0) {
@@ -64,6 +65,7 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   return {
     mode,
     questions,
+    qLength,
     currentQuestion,
     currentIndex,
     selectedMeaning,

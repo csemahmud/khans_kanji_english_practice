@@ -1,36 +1,46 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { useId } from "react";
 
-type Option = {
-  value: string | number | null;
+export type Option<T extends string | number | null> = {
+  value: T;
   label: string;
 };
 
-interface DropdownProps {
+interface DropdownProps<T extends string | number | null> {
   label?: string;
-  options: Option[];
-  selected: string | number | null;
-  onChange: (value: string | number | null) => void;
+  options: Option<T>[];
+  selected: T;
+  onChange: (value: T) => void;
   className?: string;
+  name?: string;        // ✅ form integration
+  id?: string;          // ✅ accessibility
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({
+
+export const Dropdown = <T extends string | number | null>({
   label,
   options,
   selected,
   onChange,
   className = "",
-}) => {
+  name,
+  id,
+}: DropdownProps<T>) =>  {
+  const internalId = useId(); // fallback if no `id` provided
+  const selectId = id || internalId;
+
   return (
     <div className={`w-full max-w-xs ${className}`}>
-      {label && <label className="block mb-1 text-sm text-gray-300">{label}</label>}
+      {label && <label htmlFor={selectId} className="block mb-1 text-sm text-gray-300">{label}</label>}
       <div className="relative">
         <motion.select
+          id={selectId}
+          name={name}
           value={selected === null ? "" : selected}
           onChange={(e) => {
             const value = e.target.value === "" ? null : e.target.value;
-            onChange(value);
+            onChange(value as T); // cast safely
           }}
           className="appearance-none w-full bg-gray-800 text-white text-sm py-2 pl-3 pr-10 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           whileHover={{ scale: 1.02 }}

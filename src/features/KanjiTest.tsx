@@ -14,6 +14,7 @@ const KanjiTest: React.FC = () => {
   
   // 🔄 3. Pass kanjiList to quiz hook
   const {
+    qLength,
     currentQuestion,
     currentIndex,
     handleAnswer,
@@ -24,6 +25,7 @@ const KanjiTest: React.FC = () => {
     setSelectedReading,
     showAnswer,
     score,
+    resetQuiz,
   } = useKanjiQuiz(kanjiList, mode); // Optionally pass mode too if needed
 
   if (isLoading) return (<div className="text-center text-xl mt-8">⏳ Loading kanji data...</div>);
@@ -43,7 +45,7 @@ const KanjiTest: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-white p-4 flex flex-col items-center justify-center">
       <h2 className="text-2xl font-bold mb-4 text-center">Khan's　漢字　English Quiz</h2>
-      <QuizControls mode={mode} setMode={setMode} level={level} setLevel={setLevel} />
+      <QuizControls mode={mode} setMode={setMode} level={level} setLevel={setLevel} currentIndex={currentIndex} />
       
       {/*Optional: add some spacing and better alignment*/}
       <div className="questions-container max-w-2xl w-full mx-auto mt-8 space-y-8">
@@ -52,6 +54,9 @@ const KanjiTest: React.FC = () => {
       description="Select Meaning and Reading below"
       footer={
         <AnswerFeedback
+            qLength={qLength}
+            currentQuestion={currentQuestion}
+            currentIndex={currentIndex}
             showAnswer={showAnswer}
             selectedMeaning={selectedMeaning}
             selectedReading={selectedReading}
@@ -59,6 +64,7 @@ const KanjiTest: React.FC = () => {
             correctReading={currentQuestion?.answer.reading.correct}
             onSubmit={() => handleAnswer()}
             onNext={handleNext}
+            resetQuiz={resetQuiz}
           />
       }>
           <AnswerChoices
