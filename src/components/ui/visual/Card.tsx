@@ -18,7 +18,7 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <motion.div
-      className={`bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-2xl shadow-md p-6 w-full max-w-md ${className}`}
+      className={` text-gray-900 dark:text-white rounded-2xl shadow-md p-6 w-full max-w-md bg-gray-50 dark:bg-gray-800 shadow-md${className}`}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}

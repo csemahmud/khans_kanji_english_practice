@@ -75,7 +75,7 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
         title="Select Quiz Mode"
         description="Choose between 漢字 to English or English to 漢字"
         footer={<span className="text-gray-700 dark:text-gray-300">Selected Mode: {mode}</span>}
-        className="bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+        className="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 text-lg font-bold mb-2"
       >
         <Dropdown<QuestionMode>
           label="Select Mode"
@@ -94,7 +94,7 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
         title="Select JLPT Level"
         description="Choose from N5 to N1"
         footer={<span className="text-gray-700 dark:text-gray-300">Selected Level: {level ?? 'All Levels Combined'}</span>}
-        className="bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+        className="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 text-lg font-bold mb-2"
       >
         <Dropdown<JLPTLevel | null>
           label="Select Level"

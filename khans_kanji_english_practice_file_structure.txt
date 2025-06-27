@@ -55,7 +55,8 @@ src/
 │   │       └── index.ts (Developed)
 │   ├── constants/
 │   │   ├── index.ts (Developed)
-│   │   └── kanjiExcelPaths.ts (Developed)
+│   │   ├── kanjiExcelPaths.ts (Developed)
+│   │   └── uiText.ts (Developed)
 │   └── utils/
 │       └── excelToJson.ts       # Optional: loader script or logic
 ├── styles/

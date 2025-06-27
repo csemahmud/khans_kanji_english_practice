@@ -32,7 +32,7 @@ export const Dropdown = <T extends string | number | null>({
 
   return (
     <div className={`w-full max-w-xs ${className}`}>
-      {label && <label htmlFor={selectId} className="block mb-1 text-sm text-gray-300">{label}</label>}
+      {label && <label htmlFor={selectId} className="block mb-1 text-gray-700 dark:text-gray-300 text-base font-semibold tracking-wide drop-shadow-sm">{label}</label>}
       <div className="relative">
         <motion.select
           id={selectId}
@@ -47,7 +47,8 @@ export const Dropdown = <T extends string | number | null>({
           whileFocus={{ scale: 1.02 }}
         >
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value === null ? "" : opt.value}>
+            <option className={opt.value === null ? "text-gray-300" : ""} 
+            key={opt.value} value={opt.value === null ? "" : opt.value}>
               {opt.label}
             </option>
           ))}

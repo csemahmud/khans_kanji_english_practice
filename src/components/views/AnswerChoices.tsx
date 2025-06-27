@@ -1,5 +1,3 @@
-// src/components/views/AnswerChoices.tsx
-
 import React from "react";
 import { RadioList } from "@/components/ui";
 
@@ -17,13 +15,18 @@ export const AnswerChoices: React.FC<Props> = ({ title, choices, selected, onSel
   }));
 
   return (
-    <div className="my-4 w-full max-w-xl mx-auto">
-      <h4 className="text-sm text-gray-300 mb-2">{title}</h4>
+    <div className="w-full max-w-xl mx-auto bg-gray-900 rounded-lg p-6 shadow-md">
+      <h4 className="text-base font-semibold text-gray-100 mb-2 tracking-wide drop-shadow-sm">
+        {title}
+      </h4>
+
       <RadioList
-        name={"answer-choice-"+title}
+        label={ "Select : " + title}
+        name={`answer-choice-${title}`}
         options={options}
         selectedValue={selected || ""}
         onChange={onSelect}
+        className="mt-3"
       />
     </div>
   );
