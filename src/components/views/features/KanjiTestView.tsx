@@ -102,6 +102,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
           <Card
             title={`Q${currentIndex + 1}: ${currentQuestion.prompt}`}
             description="Select Meaning and Reading below"
+            variant="answer_choices"
             footer={
               <AnswerFeedback
                 qLength={qLength}
@@ -118,18 +119,20 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
               />
             }
           >
-            <AnswerChoices
-              title="Meaning"
-              choices={currentQuestion.answer.meaning.choices}
-              selected={selectedMeaning}
-              onSelect={setSelectedMeaning}
-            />
-            <AnswerChoices
-              title="Reading"
-              choices={currentQuestion.answer.reading.choices}
-              selected={selectedReading}
-              onSelect={setSelectedReading}
-            />
+            <div className="flex flex-col sm:flex-col md:flex-row gap-4 md:space-x-4">
+              <AnswerChoices
+                title="Meaning"
+                choices={currentQuestion.answer.meaning.choices}
+                selected={selectedMeaning}
+                onSelect={setSelectedMeaning}
+              />
+              <AnswerChoices
+                title="Reading"
+                choices={currentQuestion.answer.reading.choices}
+                selected={selectedReading}
+                onSelect={setSelectedReading}
+              />
+            </div>
           </Card>
 
           {showAnswer && (

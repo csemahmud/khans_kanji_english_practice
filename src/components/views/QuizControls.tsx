@@ -70,7 +70,7 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
   );
 
   return (
-    <>
+    <div className="flex flex-col sm:flex-col md:flex-row gap-4 md:space-x-4">
       <Card
         title="Select Quiz Mode"
         description="Choose between 漢字 to English or English to 漢字"
@@ -112,6 +112,6 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
           }}
         />
       </Card>
-    </>
+    </div>
   );
 };
