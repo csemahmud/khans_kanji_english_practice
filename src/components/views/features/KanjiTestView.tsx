@@ -33,6 +33,7 @@ interface KanjiTestViewProps {
   score: number;
   handleAnswer: () => void;
   handleNext: () => void;
+  handleSkip: () => void;
   resetQuiz: () => void;
 }
 
@@ -57,6 +58,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
   score,
   handleAnswer,
   handleNext,
+  handleSkip,
   resetQuiz,
 }) => {
   if (isLoading)
@@ -115,8 +117,8 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
                 correctReading={currentQuestion.answer.reading.correct}
                 onSubmit={handleAnswer}
                 onNext={handleNext}
-                resetQuiz={resetQuiz}
-              />
+                onSkip={handleSkip}
+                resetQuiz={resetQuiz}               />
             }
           >
             <div className="flex flex-col sm:flex-col md:flex-row gap-4 md:space-x-4">

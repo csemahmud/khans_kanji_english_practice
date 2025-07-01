@@ -19,6 +19,7 @@ const KanjiTestController: React.FC = () => {
     currentQuestion,
     currentIndex,
     handleAnswer,
+    handleSkip,
     handleNext,
     selectedMeaning,
     selectedReading,
@@ -50,6 +51,7 @@ const KanjiTestController: React.FC = () => {
       showAnswer={showAnswer}
       score={score}
       handleAnswer={handleAnswer}
+      handleSkip={handleSkip}
       handleNext={handleNext}
       resetQuiz={resetQuiz}
     />

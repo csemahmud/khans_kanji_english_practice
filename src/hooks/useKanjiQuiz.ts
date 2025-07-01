@@ -52,6 +52,13 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     }
   };
 
+  // ✅ New: handleSkip()
+  const handleSkip = () => {
+    setSelectedMeaning(null);
+    setSelectedReading(null);
+    setShowAnswer(true);
+  };
+
   const resetQuiz = () => {
     const qSet = generateKanjiQuestions(kanjiList, mode);
     setQuestionList(qSet);
@@ -76,6 +83,7 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     score,
     handleAnswer,
     handleNext,
+    handleSkip, // ✅ export it
     resetQuiz, // optional
   };
 };

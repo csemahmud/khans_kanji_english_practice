@@ -26,7 +26,7 @@ src/
 │   │   └── index.tsx (Developed)
 │   └── views/
 │       ├── AnswerChoices.tsx (Developed)
-│       ├── AnswerFeedback.tsx (In Progress: To Do: Integrate ScoreBoard.tsx and Skip button)
+│       ├── AnswerFeedback.tsx (In Progress: To Do: Integrate ScoreBoard.tsx)
 │       ├── BackgroundTexture.tsx (Developed)
 │       ├── Header.tsx (Developed)
 │       ├── index.tsx (Developed)
@@ -39,7 +39,7 @@ src/
 │           └── KanjiTestController.tsx (In Progress)                  # Test feature (entire test logic, state)
 ├── hooks/
 │   ├── index.ts (Developed)
-│   ├── useKanjiQuiz.ts (In Progress: To Do: implement handleSkip() function)
+│   ├── useKanjiQuiz.ts (In Progress: To Do: modify handleAnswer() add scoring logic)
 │   └── kanji/
 │       └── useKanjiLoader.ts (Developed)
 ├── services/
