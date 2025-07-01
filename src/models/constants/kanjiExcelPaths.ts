@@ -1,5 +1,5 @@
 // src/shared/constants/kanjiExcelPaths.ts
-import { JLPTLevel } from '@/shared/types/enums/JLPTLevel';
+import { JLPTLevel } from '@/models/types/enums/JLPTLevel';
 
 export const levelFiles: Record<JLPTLevel, string> = {
   N5: '/docs/kanji_n5.xlsx',

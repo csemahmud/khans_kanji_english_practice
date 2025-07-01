@@ -1,9 +1,15 @@
-{/* 🌊 Watermark 1: 漢字 */}
-<div className="absolute top-10 left-5 text-[10rem] font-bold text-gray-400 dark:text-gray-600 opacity-10 select-none pointer-events-none">
-漢字
-</div>
+import React from 'react';
+import { WATERMARK_KANJI, WATERMARK_ENGLISH } from '@/models/constants';
 
-{/* 🌊 Watermark 2: 英語 */}
-<div className="absolute bottom-10 right-5 text-[10rem] font-bold text-gray-400 dark:text-gray-600 opacity-10 select-none pointer-events-none">
-英語
-</div>
+export const Watermarks: React.FC = () => {
+  return (
+    <>
+      <div aria-hidden="true" className="absolute top-10 left-5 text-[10rem] font-bold text-gray-400 dark:text-gray-600 opacity-10 select-none pointer-events-none">
+        {WATERMARK_KANJI}
+      </div>
+      <div aria-hidden="true" className="absolute bottom-10 right-5 text-[10rem] font-bold text-gray-400 dark:text-gray-600 opacity-10 select-none pointer-events-none">
+        {WATERMARK_ENGLISH}
+      </div>
+    </>
+  );
+};

@@ -1,5 +1,5 @@
-import type { KanjiType, KanjiQuestion, AnswerGroup, KanjiAnswer } from '@/shared/types/interfaces';
-import { QuestionMode } from '@/shared/types/enums';
+import type { KanjiType, KanjiQuestion, AnswerGroup, KanjiAnswer } from '@/models/types/interfaces';
+import { QuestionMode } from '@/models/types/enums';
 
 /** Constants */
 const DEFAULT_NUM_CHOICES = 4;

@@ -1,7 +1,7 @@
 // src/features/kanjiTest/utils/excelUtils.ts
 
 import * as XLSX from 'xlsx';
-import type { KanjiType } from '@/shared/types/interfaces';
+import type { KanjiType } from '@/models/types/interfaces';
 
 /** Type for raw Excel row before transformation */
 interface ExcelRow {

@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react';
 import { generateKanjiQuestions } from '../utils/kanjiUtils';
-import type { KanjiQuestion, KanjiType } from '@/shared/types/interfaces';
-import type { QuestionMode } from '@/shared/types/enums';
+import type { KanjiQuestion, KanjiType } from '@/models/types/interfaces';
+import type { QuestionMode } from '@/models/types/enums';
 
 export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
-  const [questions, setQuestions] = useState<KanjiQuestion[]>([]);
+  const [questionList, setQuestionList] = useState<KanjiQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedMeaning, setSelectedMeaning] = useState<string | null>(null);
   const [selectedReading, setSelectedReading] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
 
-  const currentQuestion = currentIndex < questions.length ? questions[currentIndex] : null;
-  const qLength = questions.length;
+  const currentQuestion = currentIndex < questionList.length ? questionList[currentIndex] : null;
+  const qLength = questionList.length;
 
   useEffect(() => {
     if (kanjiList.length > 0) {
       const qSet = generateKanjiQuestions(kanjiList, mode);
-      setQuestions(qSet);
+      setQuestionList(qSet);
       setCurrentIndex(0);
       setScore(0);
       setSelectedMeaning(null);
@@ -44,7 +44,7 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   };
 
   const handleNext = () => {
-    if (currentIndex < questions.length - 1) {
+    if (currentIndex < questionList.length - 1) {
       setCurrentIndex((prev) => prev + 1);
       setSelectedMeaning(null);
       setSelectedReading(null);
@@ -54,7 +54,7 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
 
   const resetQuiz = () => {
     const qSet = generateKanjiQuestions(kanjiList, mode);
-    setQuestions(qSet);
+    setQuestionList(qSet);
     setCurrentIndex(0);
     setScore(0);
     setSelectedMeaning(null);
@@ -64,7 +64,7 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
 
   return {
     mode,
-    questions,
+    questionList,
     qLength,
     currentQuestion,
     currentIndex,

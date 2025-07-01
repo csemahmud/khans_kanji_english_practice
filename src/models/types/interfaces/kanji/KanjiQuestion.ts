@@ -1,4 +1,4 @@
-import type { KanjiAnswer } from '@/shared/types/interfaces';
+import type { KanjiAnswer } from '@/models/types/interfaces';
 
 export interface KanjiQuestion {
   id: number;

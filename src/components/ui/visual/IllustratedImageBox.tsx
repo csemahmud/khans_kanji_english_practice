@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import type { KanjiQuestion } from '@/shared/types/interfaces';
+import type { KanjiQuestion } from '@/models/types/interfaces';
 
 interface IllustratedImageBoxProps {
   kanjiQuestion: KanjiQuestion;

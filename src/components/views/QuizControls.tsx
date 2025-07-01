@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Card, Dropdown } from '@/components/ui';
-import { QuestionMode, JLPTLevel } from '@/shared/types/enums';
+import { QuestionMode, JLPTLevel } from '@/models/types/enums';
 import Swal from 'sweetalert2';
 
 interface Props {

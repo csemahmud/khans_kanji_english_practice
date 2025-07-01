@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui';
-import type { KanjiQuestion } from '@/shared/types/interfaces';
+import type { KanjiQuestion } from '@/models/types/interfaces';
 
 interface Props {
   qLength: number;

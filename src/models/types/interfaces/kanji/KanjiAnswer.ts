@@ -1,4 +1,4 @@
-import type { AnswerGroup } from '@/shared/types/interfaces';
+import type { AnswerGroup } from '@/models/types/interfaces';
 
 /** A complete answer object with both meaning and reading */
 export type KanjiAnswer = {

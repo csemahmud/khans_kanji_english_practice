@@ -25,21 +25,27 @@ src/
 │   │   ├── Button.tsx (Developed)
 │   │   └── index.tsx (Developed)
 │   └── views/
-│       ├── AnswerChoices.tsx (In Progress: To Do: Integrate RadioList.tsx)
-│       ├── AnswerFeedback.tsx (In Progress: To Do: Integrate ScoreBoard.tsx)
+│       ├── AnswerChoices.tsx (Developed)
+│       ├── AnswerFeedback.tsx (In Progress: To Do: Integrate ScoreBoard.tsx and Skip button)
+│       ├── BackgroundTexture.tsx (Developed)
+│       ├── Header.tsx (Developed)
 │       ├── index.tsx (Developed)
-│       └── QuizControls.tsx (In Progress: To Do: Integrate Timer.tsx)
+│       ├── QuizControls.tsx (In Progress: To Do: Integrate Timer.tsx)
+│       ├── Watermarks.tsx (Developed)
+│       └── features/
+│           └── KanjiTestView.tsx (In Progress)                  # Test feature (main views)
 ├── features/                   # Feature modules (acts like 'Controllers' in MVC)
-│   └── KanjiTest.tsx (In Progress)                  # Test feature (entire test logic, views, state)
-│       ├── utils/
-│       │   ├── excelUtils.ts (Developed)
-│       │   ├── kanjiUtils.ts (Developed)    # shuffle, filter, generate question set
-│       │   └── scoring.ts
-│       └── hooks/
-│           ├── index.ts (Developed)
-│           ├── useKanjiLoader.ts (Developed)  # Load Excel, convert to JSON, combine
-│           └── useKanjiQuiz.ts (Developed)
-├── shared/                     # Shared interfaces, constants, helpers
+│   ├── controllers/
+│           └── KanjiTestController.tsx (In Progress)                  # Test feature (entire test logic, state)
+├── hooks/
+│   ├── index.ts (Developed)
+│   ├── useKanjiQuiz.ts (In Progress: To Do: implement handleSkip() function)
+│   └── kanji/
+│       └── useKanjiLoader.ts (Developed)
+├── services/
+│   └── kanji/
+│        └── useKanjiLoaderService.ts (Developed)  # Load Data from Excel, convert to JSON, combine
+├── models/                     # Shared interfaces, constants, helpers
 │   ├── types/
 │   │   ├── enums/
 │   │   │   ├── index.ts (Developed)
@@ -53,12 +59,15 @@ src/
 │   │       │   ├── KanjiQuestion.ts (Developed)
 │   │       │   └── KanjiAnswer.ts (Developed)
 │   │       └── index.ts (Developed)
-│   ├── constants/
-│   │   ├── index.ts (Developed)
-│   │   ├── kanjiExcelPaths.ts (Developed)
-│   │   └── uiText.ts (Developed)
-│   └── utils/
-│       └── excelToJson.ts       # Optional: loader script or logic
+│   └──constants/
+│       ├── index.ts (Developed)
+│       ├── kanjiExcelPaths.ts (Developed)
+│       └── uiText.ts (Developed)
+├── utils/
+│   ├── excelUtils.ts (Developed)
+│   ├── kanjiUtils.ts (Developed)    # shuffle, filter, generate question set
+│   ├── scoringUtils.ts (Pending) # Logic Correct Answer +4, Skip 0, Wrong Answer -1
+│   └── excelToJson.ts (Pending) # Optional: loader script or logic
 ├── styles/
 │   └── index.css
 ├── App.tsx
