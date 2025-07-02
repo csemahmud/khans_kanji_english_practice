@@ -26,7 +26,7 @@ src/
 │   │   └── index.tsx (Developed)
 │   └── views/
 │       ├── AnswerChoices.tsx (Developed)
-│       ├── AnswerFeedback.tsx (In Progress: To Do: Integrate ScoreBoard.tsx)
+│       ├── AnswerFeedback.tsx (Developed)
 │       ├── BackgroundTexture.tsx (Developed)
 │       ├── Header.tsx (Developed)
 │       ├── index.tsx (Developed)
@@ -58,15 +58,17 @@ src/
 │   │       │   ├── KanjiType.ts (Developed)
 │   │       │   ├── KanjiQuestion.ts (Developed)
 │   │       │   └── KanjiAnswer.ts (Developed)
+│   │       ├── Score.ts (Developed)
 │   │       └── index.ts (Developed)
 │   └──constants/
 │       ├── index.ts (Developed)
 │       ├── kanjiExcelPaths.ts (Developed)
 │       └── uiText.ts (Developed)
 ├── utils/
+│   ├── index.ts (Developed)
 │   ├── excelUtils.ts (Developed)
 │   ├── kanjiUtils.ts (Developed)    # shuffle, filter, generate question set
-│   ├── scoringUtils.ts (Pending) # Logic Correct Answer +4, Skip 0, Wrong Answer -1
+│   ├── scoringUtils.ts (Developed) # Logic Correct Answer +4, Skip 0, Wrong Answer -1
 │   └── excelToJson.ts (Pending) # Optional: loader script or logic
 ├── styles/
 │   └── index.css

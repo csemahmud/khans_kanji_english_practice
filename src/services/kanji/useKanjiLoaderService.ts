@@ -3,7 +3,7 @@
 import type { KanjiType } from '@/models/types/interfaces';
 import type { JLPTLevel } from '@/models/types/enums';
 import { levelFiles } from '@/models/constants';
-import { loadExcelFile } from '@/utils/excelUtils'; // still fine here
+import { loadExcelFile } from '@/utils'; // still fine here
 
 export const kanjiLoaderService = {
   async loadKanjiData(level: JLPTLevel | null = null, idCounterRef: React.MutableRefObject<number>): Promise<KanjiType[]> {

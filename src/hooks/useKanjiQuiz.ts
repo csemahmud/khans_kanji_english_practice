@@ -1,46 +1,73 @@
 import { useEffect, useState } from 'react';
-import { generateKanjiQuestions } from '../utils/kanjiUtils';
-import type { KanjiQuestion, KanjiType } from '@/models/types/interfaces';
+import { generateKanjiQuestions, calculateScore } from '@/utils';
+import type { KanjiQuestion, KanjiType, Score } from '@/models/types/interfaces';
 import type { QuestionMode } from '@/models/types/enums';
+
+const initialScore: Score = {
+  currentScore: 0,
+  total: 0,
+  correctAnswers: 0,
+  wrongAnswers: 0,
+};
 
 export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   const [questionList, setQuestionList] = useState<KanjiQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedMeaning, setSelectedMeaning] = useState<string | null>(null);
   const [selectedReading, setSelectedReading] = useState<string | null>(null);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState<Score>(initialScore);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [wasSkipped, setWasSkipped] = useState(false);
 
-  const currentQuestion = currentIndex < questionList.length ? questionList[currentIndex] : null;
+  const currentQuestion =
+    currentIndex < questionList.length ? questionList[currentIndex] : null;
   const qLength = questionList.length;
 
   useEffect(() => {
     if (kanjiList.length > 0) {
       const qSet = generateKanjiQuestions(kanjiList, mode);
       setQuestionList(qSet);
-      setCurrentIndex(0);
-      setScore(0);
-      setSelectedMeaning(null);
-      setSelectedReading(null);
-      setShowAnswer(false);
+      resetState();
     }
   }, [kanjiList, mode]);
 
-  const evaluateAnswer = (): boolean => {
-    if (!currentQuestion || !selectedMeaning || !selectedReading) return false;
-  
+  const resetState = () => {
+    setCurrentIndex(0);
+    setScore(initialScore);
+    setSelectedMeaning(null);
+    setSelectedReading(null);
+    setShowAnswer(false);
+    setWasSkipped(false);
+  };
+
+  const evaluateAnswer = (
+    meaning: string | null,
+    reading: string | null,
+    question: KanjiQuestion | null
+  ): boolean | null => {
+    if (!question || !meaning || !reading) return null;
     return (
-      selectedMeaning === currentQuestion.answer.meaning.correct &&
-      selectedReading === currentQuestion.answer.reading.correct
+      meaning === question.answer.meaning.correct &&
+      reading === question.answer.reading.correct
     );
   };
-  
+
   const handleAnswer = () => {
-    const isCorrect = evaluateAnswer();
-    if (isCorrect) {
-      setScore((prev) => prev + 1);
-    }
+    if (wasSkipped) return;
+
+    const isCorrect = evaluateAnswer(selectedMeaning, selectedReading, currentQuestion);
+    const { updatedScore } = calculateScore(isCorrect, score);
+    setScore(updatedScore);
     setShowAnswer(true);
+  };
+
+  const handleSkip = () => {
+    setWasSkipped(true);
+    const { updatedScore } = calculateScore(null, score);
+    setScore(updatedScore);
+    setShowAnswer(true);
+    setSelectedMeaning(null);
+    setSelectedReading(null);
   };
 
   const handleNext = () => {
@@ -49,24 +76,14 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
       setSelectedMeaning(null);
       setSelectedReading(null);
       setShowAnswer(false);
+      setWasSkipped(false);
     }
-  };
-
-  // ✅ New: handleSkip()
-  const handleSkip = () => {
-    setSelectedMeaning(null);
-    setSelectedReading(null);
-    setShowAnswer(true);
   };
 
   const resetQuiz = () => {
     const qSet = generateKanjiQuestions(kanjiList, mode);
     setQuestionList(qSet);
-    setCurrentIndex(0);
-    setScore(0);
-    setSelectedMeaning(null);
-    setSelectedReading(null);
-    setShowAnswer(false);
+    resetState();
   };
 
   return {
@@ -82,8 +99,8 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     showAnswer,
     score,
     handleAnswer,
+    handleSkip,
     handleNext,
-    handleSkip, // ✅ export it
-    resetQuiz, // optional
+    resetQuiz,
   };
 };

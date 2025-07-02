@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button } from '@/components/ui';
-import type { KanjiQuestion } from '@/models/types/interfaces';
+import { motion } from 'framer-motion';
+import { Button, Card, ScoreBoard } from '@/components/ui';
+import type { KanjiQuestion, Score } from '@/models/types/interfaces';
 
 interface Props {
   qLength: number;
@@ -11,6 +12,7 @@ interface Props {
   selectedReading: string | null;
   correctMeaning: string;
   correctReading: string;
+  score: Score;
   onSubmit: () => void;
   onNext: () => void;
   onSkip: () => void;
@@ -32,8 +34,8 @@ const getFeedbackColorClass = (
   correct: string
 ): string => {
   if (selected === null) return 'bg-blue-600 text-yellow-400 pr-1';
-  if (selected === correct) return 'text-green-500';
-  return 'text-red-500';
+  if (selected === correct) return 'text-green-400'; // improved contrast
+  return 'text-red-400'; // improved contrast
 };
 
 const getFeedbackSymbol = (
@@ -54,72 +56,119 @@ export const AnswerFeedback: React.FC<Props> = ({
   selectedReading,
   correctMeaning,
   correctReading,
+  score,
   onSubmit,
   onNext,
   onSkip,
   resetQuiz,
 }) => {
   return (
-    <div className="flex flex-col mt-4 w-full">
-      {showAnswer ? (
-        <>
-          <div className="mb-2">
-            <p aria-label={`Meaning feedback: ${getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}`}>
-              {getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}
-            </p>
-          </div>
-          <div className="mb-2">
-            <p aria-label={`Reading feedback: ${getFeedbackLabel(selectedReading, correctReading, 'Reading')}`}>
-              {getFeedbackLabel(selectedReading, correctReading, 'Reading')}
-            </p>
-          </div>
-          <div className="mb-2">
-            <p aria-label="Correct answer prompt and values" className="whitespace-nowrap overflow-x-auto inline-flex items-center gap-x-6">
-              <span className="font-bold inline-flex items-center gap-1">
-                {currentQuestion.prompt}
-              </span>
-              <span className="inline-flex items-center gap-1">
-                Correct Answer :
-              </span>
-            </p>
-          </div>
-          <div className="mb-2">
-            <p className="whitespace-nowrap overflow-x-auto" aria-label="Correct meaning and reading feedback">
-              Meaning:{' '}
-              <span className={`font-bold inline-flex items-center gap-1 ${getFeedbackColorClass(selectedMeaning, correctMeaning)}`}>
-                {getFeedbackSymbol(selectedMeaning, correctMeaning)} {correctMeaning}
-              </span>{' '}
-              | Reading:{' '}
-              <span className={`font-bold inline-flex items-center gap-1 ${getFeedbackColorClass(selectedReading, correctReading)}`}>
-                {getFeedbackSymbol(selectedReading, correctReading)} {correctReading}
-              </span>
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-4 w-full">
-            {currentIndex === qLength - 1 ? (
-              <>
-                <Button variant="secondary">Finish</Button>
-                <Button variant="secondary" onClick={resetQuiz}>
-                  Restart
-                </Button>
-              </>
-            ) : (
-              <Button variant="secondary" onClick={onNext}>
-                Next Question
-              </Button>
+    <div className="flex flex-col md:flex-row gap-6 mt-6 w-full justify-center px-4">
+      <div className="w-full md:max-w-[600px]">
+        {showAnswer ? (
+          <motion.div
+            key="feedback"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.4 }}
+            role="region"
+            aria-live="polite"
+          >
+            <Card
+              title="Feedback"
+              description="Here is your Feedback:"
+              footer={
+                <div className="flex flex-wrap items-center justify-center gap-4 mt-4 w-full">
+                  {currentIndex === qLength - 1 ? (
+                    <>
+                      <Button variant="secondary">Finish</Button>
+                      <Button variant="secondary" onClick={resetQuiz}>
+                        Restart
+                      </Button>
+                    </>
+                  ) : (
+                    <Button variant="secondary" onClick={onNext}>
+                      Next Question
+                    </Button>
+                  )}
+                </div>
+              }
+              className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold"
+            >
+              <div className="mb-2">
+                <p aria-label={`Meaning feedback: ${getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}`}>
+                  {getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}
+                </p>
+              </div>
+              <div className="mb-2">
+                <p aria-label={`Reading feedback: ${getFeedbackLabel(selectedReading, correctReading, 'Reading')}`}>
+                  {getFeedbackLabel(selectedReading, correctReading, 'Reading')}
+                </p>
+              </div>
+              <div className="mb-2">
+                <p aria-label="Correct answer prompt and values" className="whitespace-nowrap overflow-x-auto inline-flex items-center gap-x-6">
+                  <span className="font-bold inline-flex items-center gap-1">
+                    {currentQuestion.prompt}
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    Correct Answer:
+                  </span>
+                </p>
+              </div>
+              <div className="mb-2">
+                <p className="whitespace-nowrap overflow-x-auto" aria-label="Correct meaning and reading feedback">
+                  Meaning:{' '}
+                  <span className={`font-bold inline-flex items-center gap-1 ${getFeedbackColorClass(selectedMeaning, correctMeaning)}`}>
+                    {getFeedbackSymbol(selectedMeaning, correctMeaning)} {correctMeaning}
+                  </span>{' '}
+                  | Reading:{' '}
+                  <span className={`font-bold inline-flex items-center gap-1 ${getFeedbackColorClass(selectedReading, correctReading)}`}>
+                    {getFeedbackSymbol(selectedReading, correctReading)} {correctReading}
+                  </span>
+                </p>
+              </div>
+            </Card>
+          </motion.div>
+        ) : (
+          <div className="flex flex-wrap items-start justify-center gap-4 w-full">
+            <Button onClick={onSkip} variant="secondary">
+              Skip
+            </Button>
+            {selectedMeaning && selectedReading && (
+              <Button onClick={onSubmit}>Submit Answer</Button>
             )}
           </div>
-        </>
-      ) : (
-        <div className="flex flex-wrap items-center justify-center gap-4 mt-4 w-full">
-          <Button onClick={onSkip} variant="secondary">
-            Skip
-          </Button>
-          {selectedMeaning && selectedReading && (
-            <Button onClick={onSubmit}>Submit Answer</Button>
-          )}
-        </div>
-      )}
+        )}
+      </div>
+
+      <motion.div
+        key="score"
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4 }}
+        className="w-full md:max-w-[300px]"
+      >
+        <Card
+          title="Score"
+          description="Correct: +4, Wrong: -1, Skip: 0"
+          footer={
+            score.currentScore < 0 ? (
+              <span className="text-red-400">
+                Try to answer carefully. Random guesses are hurting your score.
+              </span>
+            ) : null
+          }
+          className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold"
+        >
+          <ScoreBoard
+            score={score.currentScore}
+            total={score.total}
+            correctAnswers={score.correctAnswers}
+            wrongAnswers={score.wrongAnswers}
+          />
+        </Card>
+      </motion.div>
     </div>
   );
 };

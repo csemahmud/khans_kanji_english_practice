@@ -10,7 +10,7 @@ import {
   Header,
 } from '@/components/views';
 import { QuestionMode, JLPTLevel } from '@/models/types/enums';
-import type { KanjiQuestion } from '@/models/types/interfaces';
+import type { KanjiQuestion, Score } from '@/models/types/interfaces';
 
 interface KanjiTestViewProps {
   headerRef: React.RefObject<HTMLElement>;
@@ -30,7 +30,7 @@ interface KanjiTestViewProps {
   setSelectedMeaning: (value: string | null) => void;
   setSelectedReading: (value: string | null) => void;
   showAnswer: boolean;
-  score: number;
+  score: Score;
   handleAnswer: () => void;
   handleNext: () => void;
   handleSkip: () => void;
@@ -115,6 +115,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
                 selectedReading={selectedReading}
                 correctMeaning={currentQuestion.answer.meaning.correct}
                 correctReading={currentQuestion.answer.reading.correct}
+                score={score}
                 onSubmit={handleAnswer}
                 onNext={handleNext}
                 onSkip={handleSkip}
