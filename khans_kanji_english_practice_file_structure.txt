@@ -5,6 +5,11 @@ public/
 │   ├── kanji_n3.xlsx (In Progress: To Do Add more Kanji)
 │   ├── kanji_n2.xlsx (In Progress: To Do Add more Kanji)
 │   └── kanji_n1.xlsx (In Progress: To Do Add more Kanji)
+├── fallbacks/                       # fallback image
+│   └── profile_fallback.jpg
+├── important/                       # important profile images
+│   ├── khan_1.JPG
+│   └── khan_2.JPG
 src/
 ├── assets/                     # Images, icons, static assets
 │   └── images/
@@ -21,6 +26,7 @@ src/
 │   │   ├── visual/
 │   │   │   ├── Card.tsx (Developed)
 │   │   │   ├── IllustratedImageBox.tsx (Developed)
+│   │   │   ├── ImageWithFallback.tsx (Developed)
 │   │   │   └── index.tsx (Developed)
 │   │   ├── Button.tsx (Developed)
 │   │   └── index.tsx (Developed)
@@ -29,17 +35,22 @@ src/
 │       ├── AnswerFeedback.tsx (Developed)
 │       ├── BackgroundTexture.tsx (Developed)
 │       ├── Header.tsx (Developed)
+│       ├── Footer.tsx (Pending) # Add "Develoved by Khan Mahmudul Hasan", my email, mobile, GitHub, Facebook, LinkedIn link
 │       ├── index.tsx (Developed)
 │       ├── QuizControls.tsx (In Progress: To Do: Integrate Timer.tsx)
 │       ├── Watermarks.tsx (Developed)
+│       ├── Welcome.tsx (Pending) # Loads, When QuizState: Welcome. Start button makes QuizState: Play
+│       ├── FinalScore.tsx (Pending) # Loads, When QuizState: Finish
 │       └── features/
-│           └── KanjiTestView.tsx (In Progress)                  # Test feature (main views)
+│           ├── KanjiTestView.tsx (In Progress)                  # Test feature (main views)
+│           ├── KanjiQuizPlay.tsx (In Progress)                  # Test feature (Quiz Play)
+│           └── Welcome.tsx (In Progress)                  # Test feature (Welcome Screen)
 ├── features/                   # Feature modules (acts like 'Controllers' in MVC)
-│   ├── controllers/
+│   └── controllers/
 │           └── KanjiTestController.tsx (In Progress)                  # Test feature (entire test logic, state)
 ├── hooks/
 │   ├── index.ts (Developed)
-│   ├── useKanjiQuiz.ts (In Progress: To Do: modify handleAnswer() add scoring logic)
+│   ├── useKanjiQuiz.ts (In Progress: To Do: add handleState(QuizState) to manage QuizState)
 │   └── kanji/
 │       └── useKanjiLoader.ts (Developed)
 ├── services/
@@ -50,7 +61,8 @@ src/
 │   │   ├── enums/
 │   │   │   ├── index.ts (Developed)
 │   │   │   ├── JLPTLevel.ts (Developed)
-│   │   │   └── QuestionMode.ts (Developed)
+│   │   │   ├── QuestionMode.ts (Developed)
+│   │   │   └── QuizState.ts (Developed) # QuizState: Welcome, Play, Finish
 │   │   └── interfaces/
 │   │       ├── kanji/
 │   │       │   ├── AnswerGroup.ts (Developed)
@@ -63,12 +75,14 @@ src/
 │   └──constants/
 │       ├── index.ts (Developed)
 │       ├── kanjiExcelPaths.ts (Developed)
+│       ├── quizConstants.ts (Developed)
 │       └── uiText.ts (Developed)
 ├── utils/
 │   ├── index.ts (Developed)
 │   ├── excelUtils.ts (Developed)
 │   ├── kanjiUtils.ts (Developed)    # shuffle, filter, generate question set
 │   ├── scoringUtils.ts (Developed) # Logic Correct Answer +4, Skip 0, Wrong Answer -1
+│   ├── timerUtils.ts (Pending) # After 1 minute, set QuizState: Finish
 │   └── excelToJson.ts (Pending) # Optional: loader script or logic
 ├── styles/
 │   └── index.css

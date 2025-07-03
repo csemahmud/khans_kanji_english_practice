@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { generateKanjiQuestions, calculateScore } from '@/utils';
 import type { KanjiQuestion, KanjiType, Score } from '@/models/types/interfaces';
-import type { QuestionMode } from '@/models/types/enums';
+import { QuizState, type QuestionMode } from '@/models/types/enums';
 
 const initialScore: Score = {
   currentScore: 0,
@@ -18,6 +18,11 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   const [score, setScore] = useState<Score>(initialScore);
   const [showAnswer, setShowAnswer] = useState(false);
   const [wasSkipped, setWasSkipped] = useState(false);
+  const [quizState, setQuizState] = useState<QuizState>(QuizState.Welcome);
+
+  const handleQuizState = (newState: QuizState) => {
+    setQuizState(newState);
+  };
 
   const currentQuestion =
     currentIndex < questionList.length ? questionList[currentIndex] : null;
@@ -25,13 +30,11 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
 
   useEffect(() => {
     if (kanjiList.length > 0) {
-      const qSet = generateKanjiQuestions(kanjiList, mode);
-      setQuestionList(qSet);
-      resetState();
+      resetQuiz(); // clean and consistent
     }
   }, [kanjiList, mode]);
 
-  const resetState = () => {
+  const resetQuestionProgress = () => {
     setCurrentIndex(0);
     setScore(initialScore);
     setSelectedMeaning(null);
@@ -83,10 +86,33 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   const resetQuiz = () => {
     const qSet = generateKanjiQuestions(kanjiList, mode);
     setQuestionList(qSet);
-    resetState();
+    resetQuestionProgress();
+  };
+
+  // Starts playing and reset to initial condition.
+  const handleStartPlay = () => {
+    if (kanjiList.length === 0) {
+      console.warn("Kanji list is empty. Cannot start quiz.");
+      return;
+    }
+    handleQuizState(QuizState.Play);
+    resetQuiz();
+  };
+
+  // Only allow finishing the quiz at or after the last question.
+  const handleFinish = (): boolean => {
+    if (currentIndex >= questionList.length - 1) {
+      handleQuizState(QuizState.Finish);
+      return true;
+    } else {
+      console.warn('handleFinish() called before the last question. Ignored.');
+      return false;
+    }
   };
 
   return {
+    quizState,
+    handleQuizState,
     mode,
     questionList,
     qLength,
@@ -102,5 +128,7 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     handleSkip,
     handleNext,
     resetQuiz,
+    handleStartPlay,
+    handleFinish,
   };
 };

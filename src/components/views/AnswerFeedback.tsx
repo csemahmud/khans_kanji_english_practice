@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button, Card, ScoreBoard } from '@/components/ui';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
+import { CORRECT_POINT, SKIP_POINT, WRONG_POINT } from '@/models/constants';
 
 interface Props {
   qLength: number;
@@ -17,6 +18,7 @@ interface Props {
   onNext: () => void;
   onSkip: () => void;
   resetQuiz: () => void;
+  handleFinish: () => void;
 }
 
 const getFeedbackLabel = (
@@ -27,6 +29,12 @@ const getFeedbackLabel = (
   if (selected === null) return `⚠️ ${type} Skipped`;
   if (selected === correct) return `✅ ${type} Correct`;
   return `❌ ${type} Wrong`;
+};
+
+const getFortmattedPointString = (
+  point: number
+): string => {
+  return (point > 0) ? "+" + point : point.toString(); 
 };
 
 const getFeedbackColorClass = (
@@ -61,6 +69,7 @@ export const AnswerFeedback: React.FC<Props> = ({
   onNext,
   onSkip,
   resetQuiz,
+  handleFinish,
 }) => {
   return (
     <div className="flex flex-col md:flex-row gap-6 mt-6 w-full justify-center px-4">
@@ -82,7 +91,9 @@ export const AnswerFeedback: React.FC<Props> = ({
                 <div className="flex flex-wrap items-center justify-center gap-4 mt-4 w-full">
                   {currentIndex === qLength - 1 ? (
                     <>
-                      <Button variant="secondary">Finish</Button>
+                      <Button variant="secondary" onClick={handleFinish}>
+                        Finish
+                      </Button>
                       <Button variant="secondary" onClick={resetQuiz}>
                         Restart
                       </Button>
@@ -151,7 +162,13 @@ export const AnswerFeedback: React.FC<Props> = ({
       >
         <Card
           title="Score"
-          description="Correct: +4, Wrong: -1, Skip: 0"
+          description={`Correct: ${
+            getFortmattedPointString(CORRECT_POINT) 
+          }, Wrong: ${
+            getFortmattedPointString(WRONG_POINT)
+          }, Skip: ${
+            getFortmattedPointString(SKIP_POINT)
+          }`}
           footer={
             score.currentScore < 0 ? (
               <span className="text-red-400">

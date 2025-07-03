@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { CORRECT_POINT } from "@/models/constants";
 
 interface ScoreBoardProps {
   score: number;
@@ -16,8 +17,8 @@ export const ScoreBoard: React.FC<ScoreBoardProps> = ({
   wrongAnswers,
   className = "",
 }) => {
-  // total * 4 because each correct answer is worth 4 points
-  const maxScore = total * 4;
+  // total * CORRECT_POINT because each correct answer is worth CORRECT_POINT points
+  const maxScore = total * CORRECT_POINT;
   const percentage = total > 0 ? (score / maxScore) * 100 : 0;
 
   return (

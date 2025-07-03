@@ -27,7 +27,10 @@ const KanjiTestController: React.FC = () => {
     setSelectedReading,
     showAnswer,
     score,
+    quizState,
     resetQuiz,
+    handleStartPlay,
+    handleFinish,
   } = useKanjiQuiz(kanjiList, mode);
 
   return (
@@ -50,10 +53,13 @@ const KanjiTestController: React.FC = () => {
       setSelectedReading={setSelectedReading}
       showAnswer={showAnswer}
       score={score}
+      quizState={quizState}
       handleAnswer={handleAnswer}
       handleSkip={handleSkip}
       handleNext={handleNext}
       resetQuiz={resetQuiz}
+      handleStartPlay={handleStartPlay}
+      handleFinish={handleFinish}
     />
   );
 };

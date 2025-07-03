@@ -7,7 +7,7 @@ interface CardProps {
   children?: React.ReactNode;
   footer?: React.ReactNode;
   className?: string;
-  variant?: "default" | "answer_choices";
+  variant?: "default" | "answer_choices" | "dark";
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -19,25 +19,31 @@ export const Card: React.FC<CardProps> = ({
   variant = "default",
 }) => {
   const baseStyles =
-    "text-gray-900 dark:text-white rounded-2xl shadow-md p-6 w-full bg-gray-50 dark:bg-gray-800";
+    "rounded-2xl shadow-md p-6 w-full";
+
+  const variantStyles = {
+    default: "text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800",
+    answer_choices: "text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800",
+    dark: "bg-gray-800 text-white border border-gray-700",
+  };
 
   const widthClass =
-    variant === "answer_choices" ? "md:max-w-3xl" : "max-w-md";
+    ((variant === "answer_choices")||(variant === "dark")) ? "md:max-w-3xl" : "max-w-md";
 
   return (
     <motion.div
-      className={`${baseStyles} ${widthClass} ${className}`}
+      className={`${baseStyles} ${variantStyles[variant]} ${widthClass} ${className}`}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
       {/* Fixed height wrapper for title + description */}
       <div className="mb-4 min-h-[72px] md:min-h-[64px] sm:min-h-[56px] flex flex-col justify-start">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+        <h3 className={`text-lg font-semibold ${(variant === "dark") ? "text-white" : "text-gray-900"}`}>
           {title}
         </h3>
         {description && (
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 leading-snug">
+          <p className={`text-sm ${(variant === "dark") ? "text-gray-300" : "text-gray-900"} mt-1 leading-snug`}>
             {description}
           </p>
         )}
@@ -46,7 +52,7 @@ export const Card: React.FC<CardProps> = ({
       {children && <div className="mb-4">{children}</div>}
 
       {footer && (
-        <div className="border-t border-gray-300 dark:border-gray-700 pt-3">
+        <div className="border-t border-gray-700 pt-3">
           {footer}
         </div>
       )}

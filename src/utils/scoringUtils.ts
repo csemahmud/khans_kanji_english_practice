@@ -1,3 +1,4 @@
+import { CORRECT_POINT, SKIP_POINT, WRONG_POINT } from "@/models/constants";
 import type { Score } from "@/models/types/interfaces";
 
 export function calculateScore(
@@ -5,18 +6,19 @@ export function calculateScore(
     prevScore: Score
   ): { updatedScore: Score; delta: number } {
     let delta = 0;
-    const CORRECT_DELTA = 4;
-    const WRONG_DELTA = -1;
     const updatedScore: Score = { ...prevScore, total: prevScore.total + 1 };
   
     if (isCorrect === true) {
-      delta = CORRECT_DELTA;
+      delta = CORRECT_POINT;
       updatedScore.currentScore += delta;
       updatedScore.correctAnswers += 1;
     } else if (isCorrect === false) {
-      delta = WRONG_DELTA;
+      delta = WRONG_POINT;
       updatedScore.currentScore += delta;
       updatedScore.wrongAnswers += 1;
+    } else if (isCorrect === null) {
+      delta = SKIP_POINT;
+      updatedScore.currentScore += delta;
     }
   
     return { updatedScore, delta };

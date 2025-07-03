@@ -1,16 +1,15 @@
 // src/components/views/features/KanjiTestView.tsx
 import React from 'react';
-import { Card, IllustratedImageBox } from '@/components/ui';
 import {
   QuizControls,
-  AnswerChoices,
-  AnswerFeedback,
   BackgroundTexture,
   Watermarks,
   Header,
 } from '@/components/views';
-import { QuestionMode, JLPTLevel } from '@/models/types/enums';
+import { QuestionMode, JLPTLevel, QuizState } from '@/models/types/enums';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
+import KanjiQuizPlay from './KanjiQuizPlay';
+import Welcome from './Welcome';
 
 interface KanjiTestViewProps {
   headerRef: React.RefObject<HTMLElement>;
@@ -31,10 +30,13 @@ interface KanjiTestViewProps {
   setSelectedReading: (value: string | null) => void;
   showAnswer: boolean;
   score: Score;
+  quizState: QuizState;
   handleAnswer: () => void;
   handleNext: () => void;
   handleSkip: () => void;
   resetQuiz: () => void;
+  handleStartPlay: () => void;
+  handleFinish: () => void;
 }
 
 const KanjiTestView: React.FC<KanjiTestViewProps> = ({
@@ -56,11 +58,46 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
   setSelectedReading,
   showAnswer,
   score,
+  quizState,
   handleAnswer,
   handleNext,
   handleSkip,
   resetQuiz,
+  handleStartPlay,
+  handleFinish,
 }) => {
+
+  // 🔁 Render based on state
+  const renderQuizContent = () => {
+    switch (quizState) {
+      case QuizState.Welcome:
+        return <Welcome handleStartPlay={handleStartPlay} />;
+
+      case QuizState.Play:
+        return (
+          <KanjiQuizPlay
+            qLength={qLength}
+            currentQuestion={currentQuestion!}
+            currentIndex={currentIndex}
+            selectedMeaning={selectedMeaning}
+            selectedReading={selectedReading}
+            setSelectedMeaning={setSelectedMeaning}
+            setSelectedReading={setSelectedReading}
+            showAnswer={showAnswer}
+            score={score}
+            handleAnswer={handleAnswer}
+            handleNext={handleNext}
+            handleSkip={handleSkip}
+            resetQuiz={resetQuiz}
+            handleFinish={handleFinish}
+          />
+        );
+
+      default:
+        return <div className="text-center mt-8">⚠️ Unknown quiz state.</div>;
+    }
+  };
+
   if (isLoading)
     return <div className="text-center text-xl mt-8" aria-live="polite">⏳ Loading kanji data...</div>;
 
@@ -82,9 +119,10 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
   if (!currentQuestion) return <div aria-live="polite">⚠️ No current question loaded.</div>;
 
   if (currentIndex >= questionList.length) {
-    return <div className="text-center mt-8" aria-live="polite">🎉 Quiz complete! Your score: {score}</div>;
+    return <div className="text-center mt-8" aria-live="polite">🎉 Quiz complete! Your score: {score.currentScore}</div>;
   }
 
+  // 🌟 Final Render
   return (
     <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
       <BackgroundTexture />
@@ -99,51 +137,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
           setLevel={setLevel}
           currentIndex={currentIndex}
         />
-
-        <div className="questions-container max-w-2xl w-full mx-auto mt-8 space-y-8">
-          <Card
-            title={`Q${currentIndex + 1}: ${currentQuestion.prompt}`}
-            description="Select Meaning and Reading below"
-            variant="answer_choices"
-            footer={
-              <AnswerFeedback
-                qLength={qLength}
-                currentQuestion={currentQuestion}
-                currentIndex={currentIndex}
-                showAnswer={showAnswer}
-                selectedMeaning={selectedMeaning}
-                selectedReading={selectedReading}
-                correctMeaning={currentQuestion.answer.meaning.correct}
-                correctReading={currentQuestion.answer.reading.correct}
-                score={score}
-                onSubmit={handleAnswer}
-                onNext={handleNext}
-                onSkip={handleSkip}
-                resetQuiz={resetQuiz}               />
-            }
-          >
-            <div className="flex flex-col sm:flex-col md:flex-row gap-4 md:space-x-4">
-              <AnswerChoices
-                title="Meaning"
-                choices={currentQuestion.answer.meaning.choices}
-                selected={selectedMeaning}
-                onSelect={setSelectedMeaning}
-              />
-              <AnswerChoices
-                title="Reading"
-                choices={currentQuestion.answer.reading.choices}
-                selected={selectedReading}
-                onSelect={setSelectedReading}
-              />
-            </div>
-          </Card>
-
-          {showAnswer && (
-            <div className="max-w-md mx-auto">
-              <IllustratedImageBox kanjiQuestion={currentQuestion} />
-            </div>
-          )}
-        </div>
+        {renderQuizContent()}
       </main>
     </div>
   );
