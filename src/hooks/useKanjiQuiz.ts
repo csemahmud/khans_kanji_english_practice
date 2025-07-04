@@ -86,6 +86,9 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   const resetQuiz = () => {
     const qSet = generateKanjiQuestions(kanjiList, mode);
     setQuestionList(qSet);
+    if(quizState == QuizState.Finish){
+      handleQuizState(QuizState.Play)
+    }
     resetQuestionProgress();
   };
 

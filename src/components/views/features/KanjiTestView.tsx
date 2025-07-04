@@ -10,6 +10,7 @@ import { QuestionMode, JLPTLevel, QuizState } from '@/models/types/enums';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
 import KanjiQuizPlay from './KanjiQuizPlay';
 import Welcome from './Welcome';
+import { FinalScore } from './FinalScore';
 
 interface KanjiTestViewProps {
   headerRef: React.RefObject<HTMLElement>;
@@ -92,6 +93,14 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
             handleFinish={handleFinish}
           />
         );
+
+        case QuizState.Finish:
+          return (
+            <FinalScore
+              score={score}
+              resetQuiz={resetQuiz}
+            />
+          );
 
       default:
         return <div className="text-center mt-8">⚠️ Unknown quiz state.</div>;
