@@ -1,28 +1,14 @@
-import React, { useEffect, useState } from "react";
+// Timer.tsx (Refactored View-only)
+import React from "react";
 import { motion } from "framer-motion";
 
 interface TimerProps {
-  duration: number; // in seconds
-  onTimeUp?: () => void;
+  timeLeft: number; // receives from parent
+  totalDuration: number;
   className?: string;
 }
 
-export const Timer: React.FC<TimerProps> = ({ duration, onTimeUp, className = "" }) => {
-  const [timeLeft, setTimeLeft] = useState(duration);
-
-  useEffect(() => {
-    if (timeLeft <= 0) {
-      onTimeUp?.();
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [timeLeft, onTimeUp]);
-
+export const Timer: React.FC<TimerProps> = ({ timeLeft, totalDuration, className = "" }) => {
   const formatTime = (seconds: number): string => {
     const m = Math.floor(seconds / 60)
       .toString()
@@ -31,7 +17,7 @@ export const Timer: React.FC<TimerProps> = ({ duration, onTimeUp, className = ""
     return `${m}:${s}`;
   };
 
-  const percent = (timeLeft / duration) * 100;
+  const percent = (timeLeft / totalDuration) * 100;
 
   return (
     <motion.div

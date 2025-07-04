@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card, ImageWithFallback } from '@/components/ui';
-import { CORRECT_POINT, WRONG_POINT, SKIP_POINT, QUIZ_TITLE } from '@/models/constants';
+import { CORRECT_POINT, WRONG_POINT, SKIP_POINT, QUIZ_TITLE, TIME_LIMIT } from '@/models/constants';
 import { motion } from 'framer-motion';
 
 interface WelcomeProps {
@@ -28,6 +28,13 @@ const itemVariant = {
   hidden: { opacity: 0, y: 10 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
+
+export function formatToMinute(sec: number): string {
+  const minutes = Math.floor(sec / 60);
+  const seconds = sec % 60;
+  const paddedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+  return `${minutes}:${paddedSeconds}`;
+}
 
 const Welcome: React.FC<WelcomeProps> = ({ handleStartPlay }) => {
   return (
@@ -73,7 +80,7 @@ const Welcome: React.FC<WelcomeProps> = ({ handleStartPlay }) => {
               <ul className="list-disc list-inside space-y-1">
                 <li>Select Game Mode: 漢字 to En or En to 漢字</li>
                 <li>Choose JLPT Level (N5–N1). If unselected, questions are combined.</li>
-                <li>Quiz time: 1 minute</li>
+                <li>Quiz time: {formatToMinute(TIME_LIMIT)} minute</li>
                 <li>
                   Marks — Correct: {getFortmattedPointString(CORRECT_POINT)}, Wrong: {getFortmattedPointString(WRONG_POINT)}, Skipped: {getFortmattedPointString(SKIP_POINT)}
                 </li>

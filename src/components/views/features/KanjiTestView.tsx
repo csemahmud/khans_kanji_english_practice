@@ -32,6 +32,8 @@ interface KanjiTestViewProps {
   showAnswer: boolean;
   score: Score;
   quizState: QuizState;
+  remainingTime: number;
+  isTimedUp: boolean,
   handleAnswer: () => void;
   handleNext: () => void;
   handleSkip: () => void;
@@ -60,6 +62,8 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
   showAnswer,
   score,
   quizState,
+  remainingTime,
+  isTimedUp,
   handleAnswer,
   handleNext,
   handleSkip,
@@ -86,6 +90,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
             setSelectedReading={setSelectedReading}
             showAnswer={showAnswer}
             score={score}
+            remainingTime={remainingTime}
             handleAnswer={handleAnswer}
             handleNext={handleNext}
             handleSkip={handleSkip}
@@ -99,6 +104,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
             <FinalScore
               score={score}
               resetQuiz={resetQuiz}
+              isTimedUp={isTimedUp}
             />
           );
 

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { generateKanjiQuestions, calculateScore } from '@/utils';
+import { startTimer, clearTimer } from '@/utils/timerUtils';
+import { TIME_LIMIT } from '@/models/constants/quizConstants';
 import type { KanjiQuestion, KanjiType, Score } from '@/models/types/interfaces';
 import { QuizState, type QuestionMode } from '@/models/types/enums';
 
@@ -19,6 +21,8 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [wasSkipped, setWasSkipped] = useState(false);
   const [quizState, setQuizState] = useState<QuizState>(QuizState.Welcome);
+  const [remainingTime, setRemainingTime] = useState<number>(TIME_LIMIT);
+  const [isTimedUp, setIsTimedUp] = useState(false);
 
   const handleQuizState = (newState: QuizState) => {
     setQuizState(newState);
@@ -33,6 +37,34 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
       resetQuiz(); // clean and consistent
     }
   }, [kanjiList, mode]);
+
+  useEffect(() => {
+    if (quizState === QuizState.Play) {
+      clearTimer(); // Avoid multiple intervals
+      setRemainingTime(TIME_LIMIT); // Reset time display
+      startTimer(TIME_LIMIT, setRemainingTime, handleTimeOut);
+      setIsTimedUp(false);
+    }
+  }, [quizState]);
+
+  useEffect(() => {
+    if (quizState === QuizState.Play) {
+      clearTimer();
+      setRemainingTime(TIME_LIMIT);
+      startTimer(TIME_LIMIT, setRemainingTime, handleTimeOut);
+      setIsTimedUp(false);
+    }
+  }, [quizState]);
+
+  const handleTimeOut = () => {
+    clearTimer();
+    
+    if (currentIndex < questionList.length - 1) {
+      setIsTimedUp(true); // Show special alert later
+    }
+  
+    handleQuizState(QuizState.Finish);
+  };
 
   const resetQuestionProgress = () => {
     setCurrentIndex(0);
@@ -86,13 +118,18 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   const resetQuiz = () => {
     const qSet = generateKanjiQuestions(kanjiList, mode);
     setQuestionList(qSet);
-    if(quizState == QuizState.Finish){
-      handleQuizState(QuizState.Play)
+  
+    // ✅ Only move to Play if coming from Finish
+    if (quizState === QuizState.Finish) {
+      handleQuizState(QuizState.Play);
     }
+  
+    clearTimer();
+    setRemainingTime(TIME_LIMIT);
     resetQuestionProgress();
+    setIsTimedUp(false);
   };
 
-  // Starts playing and reset to initial condition.
   const handleStartPlay = () => {
     if (kanjiList.length === 0) {
       console.warn("Kanji list is empty. Cannot start quiz.");
@@ -102,9 +139,9 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     resetQuiz();
   };
 
-  // Only allow finishing the quiz at or after the last question.
   const handleFinish = (): boolean => {
     if (currentIndex >= questionList.length - 1) {
+      clearTimer();
       handleQuizState(QuizState.Finish);
       return true;
     } else {
@@ -127,6 +164,8 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     setSelectedReading,
     showAnswer,
     score,
+    remainingTime,
+    isTimedUp,
     handleAnswer,
     handleSkip,
     handleNext,

@@ -28,6 +28,8 @@ const KanjiTestController: React.FC = () => {
     showAnswer,
     score,
     quizState,
+    remainingTime,
+    isTimedUp,
     resetQuiz,
     handleStartPlay,
     handleFinish,
@@ -54,6 +56,8 @@ const KanjiTestController: React.FC = () => {
       showAnswer={showAnswer}
       score={score}
       quizState={quizState}
+      remainingTime={remainingTime}
+      isTimedUp={isTimedUp}
       handleAnswer={handleAnswer}
       handleSkip={handleSkip}
       handleNext={handleNext}

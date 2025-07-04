@@ -1,20 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button, Card, ScoreBoard } from '@/components/ui';
 import type { Score } from '@/models/types/interfaces';
 import { CORRECT_POINT } from '@/models/constants';
+import Swal from 'sweetalert2';
 
 interface Props {
   score: Score;
+  isTimedUp: boolean;
   resetQuiz: () => void;
 }
 
 export const FinalScore: React.FC<Props> = ({
   score,
+  isTimedUp,
   resetQuiz,
 }) => {
 
-  const percentage = Math.round((score.currentScore / (score.total * CORRECT_POINT)) * 100);
+  useEffect(() => {
+    if (isTimedUp) {
+      Swal.fire({
+        title: "Timed Out",
+        text: "Sorry, Quiz Time Has Finished !!!",
+        icon: 'error',
+        confirmButtonText: "OK",
+        background: '#1f2937', // dark gray background
+        color: '#f3f4f6', // light text
+        customClass: {
+          confirmButton: 'px-4 py-2 bg-red-600 text-white rounded',
+        },
+      });
+    }
+  }, [isTimedUp]);
+
+  const percentage = Math.min(
+    100,
+    Math.round((score.currentScore / (score.total * CORRECT_POINT)) * 100)
+  );
 
   let message = '';
   let emoji = '';
@@ -68,7 +90,7 @@ export const FinalScore: React.FC<Props> = ({
             correctAnswers={score.correctAnswers}
             wrongAnswers={score.wrongAnswers}
           />
-          <div className="mt-4 text-center">
+          <div className="mt-4 text-center" role="alert">
             <p className="text-xl">
               🏁 Score: <span className="font-bold">{percentage}%</span>
             </p>

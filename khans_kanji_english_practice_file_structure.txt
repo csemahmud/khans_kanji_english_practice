@@ -37,20 +37,21 @@ src/
 │       ├── Header.tsx (Developed)
 │       ├── Footer.tsx (Pending) # Add "Develoved by Khan Mahmudul Hasan", my email, mobile, GitHub, Facebook, LinkedIn link
 │       ├── index.tsx (Developed)
-│       ├── QuizControls.tsx (In Progress: To Do: Integrate Timer.tsx)
+│       ├── QuizControls.tsx (Developed)
 │       ├── Watermarks.tsx (Developed)
 │       ├── Welcome.tsx (Pending) # Loads, When QuizState: Welcome. Start button makes QuizState: Play
 │       ├── FinalScore.tsx (Pending) # Loads, When QuizState: Finish
 │       └── features/
-│           ├── KanjiTestView.tsx (In Progress)                  # Test feature (main views)
-│           ├── KanjiQuizPlay.tsx (In Progress)                  # Test feature (Quiz Play)
+│           ├── KanjiTestView.tsx (Developed)                  # Test feature (main views)
+│           ├── KanjiQuizPlay.tsx (In Progress: To Do: Integrate Timer.tsx)         # Test feature (Quiz Play)
+│           ├── FinalScore.tsx (Developed)                  # Test feature (Shows Final Score)
 │           └── Welcome.tsx (In Progress)                  # Test feature (Welcome Screen)
 ├── features/                   # Feature modules (acts like 'Controllers' in MVC)
 │   └── controllers/
 │           └── KanjiTestController.tsx (In Progress)                  # Test feature (entire test logic, state)
 ├── hooks/
 │   ├── index.ts (Developed)
-│   ├── useKanjiQuiz.ts (In Progress: To Do: add handleState(QuizState) to manage QuizState)
+│   ├── useKanjiQuiz.ts (In Progress: To Do: Update handleStartPlay() => start timer, update resetQuiz() => Reset remainingTime = const TIME_LIMIT, add handleTimeOut() when const remainingTime === 0 )
 │   └── kanji/
 │       └── useKanjiLoader.ts (Developed)
 ├── services/
@@ -75,14 +76,14 @@ src/
 │   └──constants/
 │       ├── index.ts (Developed)
 │       ├── kanjiExcelPaths.ts (Developed)
-│       ├── quizConstants.ts (Developed)
+│       ├── quizConstants.ts (In Progress. To Do: Add export const TIME_LIMIT = 60 sec;)
 │       └── uiText.ts (Developed)
 ├── utils/
 │   ├── index.ts (Developed)
 │   ├── excelUtils.ts (Developed)
 │   ├── kanjiUtils.ts (Developed)    # shuffle, filter, generate question set
 │   ├── scoringUtils.ts (Developed) # Logic Correct Answer +4, Skip 0, Wrong Answer -1
-│   ├── timerUtils.ts (Pending) # After 1 minute, set QuizState: Finish
+│   ├── timerUtils.ts (Pending) # After 60 Sec, set QuizState: Finish
 │   └── excelToJson.ts (Pending) # Optional: loader script or logic
 ├── styles/
 │   └── index.css

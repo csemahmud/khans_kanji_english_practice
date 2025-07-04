@@ -13,6 +13,7 @@ interface KanjiQuizPlayProps {
   setSelectedReading: (value: string | null) => void;
   showAnswer: boolean;
   score: Score;
+  remainingTime: number;
   handleAnswer: () => void;
   handleNext: () => void;
   handleSkip: () => void;
@@ -30,6 +31,7 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
   setSelectedReading,
   showAnswer,
   score,
+  remainingTime,
   handleAnswer,
   handleNext,
   handleSkip,
@@ -53,6 +55,7 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
             correctMeaning={currentQuestion.answer.meaning.correct}
             correctReading={currentQuestion.answer.reading.correct}
             score={score}
+            remainingTime={remainingTime}
             onSubmit={handleAnswer}
             onNext={handleNext}
             onSkip={handleSkip}

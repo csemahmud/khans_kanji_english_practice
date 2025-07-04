@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button, Card, ScoreBoard } from '@/components/ui';
+import { Button, Card, ScoreBoard, Timer } from '@/components/ui';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
-import { CORRECT_POINT, SKIP_POINT, WRONG_POINT } from '@/models/constants';
+import { CORRECT_POINT, SKIP_POINT, TIME_LIMIT, WRONG_POINT } from '@/models/constants';
 
 interface Props {
   qLength: number;
@@ -14,6 +14,7 @@ interface Props {
   correctMeaning: string;
   correctReading: string;
   score: Score;
+  remainingTime: number;
   onSubmit: () => void;
   onNext: () => void;
   onSkip: () => void;
@@ -65,6 +66,7 @@ export const AnswerFeedback: React.FC<Props> = ({
   correctMeaning,
   correctReading,
   score,
+  remainingTime,
   onSubmit,
   onNext,
   onSkip,
@@ -178,6 +180,7 @@ export const AnswerFeedback: React.FC<Props> = ({
           }
           className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold"
         >
+          <Timer timeLeft={remainingTime} totalDuration={TIME_LIMIT} />
           <ScoreBoard
             score={score.currentScore}
             total={score.total}
