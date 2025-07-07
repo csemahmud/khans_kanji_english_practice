@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button, Card, ScoreBoard, Timer } from '@/components/ui';
+import { Button, Card, IllustratedImageBox, ScoreBoard, Timer } from '@/components/ui';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
 import { CORRECT_POINT, SKIP_POINT, TIME_LIMIT, WRONG_POINT } from '@/models/constants';
 
@@ -140,6 +140,9 @@ export const AnswerFeedback: React.FC<Props> = ({
                     {getFeedbackSymbol(selectedReading, correctReading)} {correctReading}
                   </span>
                 </p>
+              </div>
+              <div className="max-w-md mx-auto">
+                <IllustratedImageBox kanjiQuestion={currentQuestion} />
               </div>
             </Card>
           </motion.div>

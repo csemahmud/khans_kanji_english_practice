@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, IllustratedImageBox } from '@/components/ui';
+import { Card } from '@/components/ui';
 import { AnswerChoices, AnswerFeedback } from '@/components/views';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
 
@@ -79,12 +79,6 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
           />
         </div>
       </Card>
-
-      {showAnswer && (
-        <div className="max-w-md mx-auto">
-          <IllustratedImageBox kanjiQuestion={currentQuestion} />
-        </div>
-      )}
     </div>
   );
 };
