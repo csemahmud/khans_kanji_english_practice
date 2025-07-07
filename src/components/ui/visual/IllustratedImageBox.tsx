@@ -24,10 +24,11 @@ export const IllustratedImageBox: React.FC<IllustratedImageBoxProps> = ({ kanjiQ
         
         {kanjiQuestion.imageUrl ? (
             <img
-            src={kanjiQuestion.imageUrl}
-            alt={`Kanji Illustration - ${kanjiQuestion.prompt}`}
-            className="object-contain max-h-full"
-          />
+              src={kanjiQuestion.imageUrl}
+              alt={`Kanji Illustration - ${kanjiQuestion.prompt}`}
+              className="object-contain max-h-full"
+              loading="lazy"
+            />
           ) : (
             <div className="flex h-48 w-full items-center justify-center text-gray-500 bg-zinc-800 rounded-lg">
               No Illustration
