@@ -33,10 +33,10 @@ export const FinalScore: React.FC<Props> = ({
     }
   }, [isTimedUp]);
 
-  const percentage = Math.min(
+  const percentage = (score.total !== 0) ? Math.min(
     100,
     Math.round((score.currentScore / (score.total * CORRECT_POINT)) * 100)
-  );
+  ) : 0;
 
   let message = '';
   let emoji = '';

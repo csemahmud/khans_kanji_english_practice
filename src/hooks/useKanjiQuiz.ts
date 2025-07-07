@@ -34,27 +34,18 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
 
   useEffect(() => {
     if (kanjiList.length > 0) {
-      resetQuiz(); // clean and consistent
+      resetQuiz();
     }
   }, [kanjiList, mode]);
 
   useEffect(() => {
-    if (quizState === QuizState.Play) {
-      clearTimer(); // Avoid multiple intervals
-      setRemainingTime(TIME_LIMIT); // Reset time display
-      startTimer(TIME_LIMIT, setRemainingTime, handleTimeOut);
-      setIsTimedUp(false);
-    }
-  }, [quizState]);
-
-  useEffect(() => {
-    if (quizState === QuizState.Play) {
-      clearTimer();
+    if (quizState === QuizState.Play && questionList.length > 0) {
+      clearTimer(); // Prevent multiple intervals
       setRemainingTime(TIME_LIMIT);
       startTimer(TIME_LIMIT, setRemainingTime, handleTimeOut);
       setIsTimedUp(false);
     }
-  }, [quizState]);
+  }, [quizState, questionList]);
 
   const handleTimeOut = () => {
     clearTimer();
@@ -116,18 +107,21 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   };
 
   const resetQuiz = () => {
+    clearTimer(); // Stop any running timer first
+    setRemainingTime(TIME_LIMIT); // Reset countdown
+    setIsTimedUp(false); // Clear timeout flag
+    resetQuestionProgress(); // Reset index, score, selections
+  
     const qSet = generateKanjiQuestions(kanjiList, mode);
     setQuestionList(qSet);
   
-    // ✅ Only move to Play if coming from Finish
-    if (quizState === QuizState.Finish) {
-      handleQuizState(QuizState.Play);
+    // Only transition to Play if it's in a valid intermediate state like Finish
+    const shouldTransitionToPlay = 
+    quizState === QuizState.Finish;
+
+    if (shouldTransitionToPlay) {
+    handleQuizState(QuizState.Play);
     }
-  
-    clearTimer();
-    setRemainingTime(TIME_LIMIT);
-    resetQuestionProgress();
-    setIsTimedUp(false);
   };
 
   const handleStartPlay = () => {
