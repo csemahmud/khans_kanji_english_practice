@@ -1,0 +1,1 @@
+export const IMAGE_PATH = '/Kanji_Images/'
