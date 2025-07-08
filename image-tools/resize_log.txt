@@ -18,3 +18,13 @@ Resized: public/Kanji_Images\.\n4_strong.png
 Resized: public/Kanji_Images\.\n4_study.jpg
 Resized: public/Kanji_Images\.\n4_teach.jpg
 Resized: public/Kanji_Images\.\n4_trip.jpeg
+Resized: public/Kanji_Images\.\n3_emotion.webp
+Resized: public/Kanji_Images\.\n3_establish.jpg
+Resized: public/Kanji_Images\.\n3_feeling.jpg
+Resized: public/Kanji_Images\.\n3_finish.jpg
+Resized: public/Kanji_Images\.\n3_love.jpg
+Resized: public/Kanji_Images\.\n3_machine.jpg
+Resized: public/Kanji_Images\.\n3_manage.png
+Resized: public/Kanji_Images\.\n3_pass_through.jpg
+Resized: public/Kanji_Images\.\n3_report.png
+Resized: public/Kanji_Images\.\n3_thought.jpg
