@@ -8,3 +8,13 @@ Resized: public/Kanji_Images\.\n5_person.webp
 Resized: public/Kanji_Images\.\n5_ten.jpg
 Resized: public/Kanji_Images\.\n5_two.png
 Resized: public/Kanji_Images\.\n5_year.jpg
+Resized: public/Kanji_Images\.\n4_close.webp
+Resized: public/Kanji_Images\.\n4_company.webp
+Resized: public/Kanji_Images\.\n4_meeting.webp
+Resized: public/Kanji_Images\.\n4_member.jpg
+Resized: public/Kanji_Images\.\n4_open.jpg
+Resized: public/Kanji_Images\.\n4_room.jpg
+Resized: public/Kanji_Images\.\n4_strong.png
+Resized: public/Kanji_Images\.\n4_study.jpg
+Resized: public/Kanji_Images\.\n4_teach.jpg
+Resized: public/Kanji_Images\.\n4_trip.jpeg
