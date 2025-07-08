@@ -91,7 +91,7 @@ src/
 │   ├── README.md (Developed)
 │   ├── resize_images.py (Developed) # Tool to resize images (Maximum size 500 X 500 and save it in public\Kanji_Images)
 │   └── resize_log.txt (Developed)
-├── original_images/ # Create This folder. Run resize_images.py Get Resized Images at public\Kanji_Images
+├── original_images/ # Create This folder if not exists. Run resize_images.py Get Resized Images at public\Kanji_Images
 ├── styles/
 │   └── index.css
 ├── App.tsx

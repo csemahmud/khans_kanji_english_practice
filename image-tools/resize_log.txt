@@ -1,1 +1,10 @@
 Resized: public/Kanji_Images\.\n5_sun.png
+Resized: public/Kanji_Images\.\n5_big.webp
+Resized: public/Kanji_Images\.\n5_book.png
+Resized: public/Kanji_Images\.\n5_country.jpg
+Resized: public/Kanji_Images\.\n5_inside.webp
+Resized: public/Kanji_Images\.\n5_one.jpg
+Resized: public/Kanji_Images\.\n5_person.webp
+Resized: public/Kanji_Images\.\n5_ten.jpg
+Resized: public/Kanji_Images\.\n5_two.png
+Resized: public/Kanji_Images\.\n5_year.jpg
