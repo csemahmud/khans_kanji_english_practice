@@ -23,4 +23,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-/public/Kanji_Images/
+/original_images/

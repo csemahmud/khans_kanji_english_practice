@@ -5,6 +5,7 @@ public/
 │   ├── kanji_n3.xlsx (In Progress: To Do Add more Kanji)
 │   ├── kanji_n2.xlsx (In Progress: To Do Add more Kanji)
 │   └── kanji_n1.xlsx (In Progress: To Do Add more Kanji)
+├── Kanji_Images/ (In Progress) # Resized (Maximum Size 500 X 500) Kanji Images are saved for illustration
 ├── fallbacks/                       # fallback image
 │   └── profile_fallback.jpg
 ├── important/                       # important profile images
@@ -39,13 +40,13 @@ src/
 │       ├── index.tsx (Developed)
 │       ├── QuizControls.tsx (Developed)
 │       ├── Watermarks.tsx (Developed)
-│       ├── Welcome.tsx (Pending) # Loads, When QuizState: Welcome. Start button makes QuizState: Play
-│       ├── FinalScore.tsx (Pending) # Loads, When QuizState: Finish
+│       ├── Welcome.tsx (Developed) # Loads, When QuizState: Welcome. Start button makes QuizState: Play
+│       ├── FinalScore.tsx (Developed) # Loads, When QuizState: Finish
 │       └── features/
 │           ├── KanjiTestView.tsx (Developed)                  # Test feature (main views)
-│           ├── KanjiQuizPlay.tsx (In Progress: To Do: Integrate Timer.tsx)         # Test feature (Quiz Play)
+│           ├── KanjiQuizPlay.tsx (Developed)         # Test feature (Quiz Play)
 │           ├── FinalScore.tsx (Developed)                  # Test feature (Shows Final Score)
-│           └── Welcome.tsx (In Progress)                  # Test feature (Welcome Screen)
+│           └── Welcome.tsx (Developed)                  # Test feature (Welcome Screen)
 ├── features/                   # Feature modules (acts like 'Controllers' in MVC)
 │   └── controllers/
 │           └── KanjiTestController.tsx (In Progress)                  # Test feature (entire test logic, state)
@@ -76,15 +77,21 @@ src/
 │   └──constants/
 │       ├── index.ts (Developed)
 │       ├── kanjiExcelPaths.ts (Developed)
-│       ├── quizConstants.ts (In Progress. To Do: Add export const TIME_LIMIT = 60 sec;)
+│       ├── publicPaths.ts (Developed)
+│       ├── quizConstants.ts (Developed) # export const TIME_LIMIT = 120 sec;)
 │       └── uiText.ts (Developed)
 ├── utils/
 │   ├── index.ts (Developed)
 │   ├── excelUtils.ts (Developed)
 │   ├── kanjiUtils.ts (Developed)    # shuffle, filter, generate question set
 │   ├── scoringUtils.ts (Developed) # Logic Correct Answer +4, Skip 0, Wrong Answer -1
-│   ├── timerUtils.ts (Pending) # After 60 Sec, set QuizState: Finish
+│   ├── timerUtils.ts (Developed) # After 120 Sec, set QuizState: Finish
 │   └── excelToJson.ts (Pending) # Optional: loader script or logic
+├── image-tools/ # Just Image resizing tool. Not Part of the main project.
+│   ├── README.md (Developed)
+│   ├── resize_images.py (Developed) # Tool to resize images (Maximum size 500 X 500 and save it in public\Kanji_Images)
+│   └── resize_log.txt (Developed)
+├── original_images/ # Create This folder. Run resize_images.py Get Resized Images at public\Kanji_Images
 ├── styles/
 │   └── index.css
 ├── App.tsx
