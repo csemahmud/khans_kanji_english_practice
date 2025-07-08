@@ -11,6 +11,8 @@ public/
 ├── important/                       # important profile images
 │   ├── khan_1.JPG
 │   └── khan_2.JPG
+├── screenshots/                       # important profile images
+│   └── app_demo_kanji.png
 src/
 ├── assets/                     # Images, icons, static assets
 │   └── images/

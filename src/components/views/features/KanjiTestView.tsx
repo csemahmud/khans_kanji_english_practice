@@ -5,6 +5,7 @@ import {
   BackgroundTexture,
   Watermarks,
   Header,
+  Footer,
 } from '@/components/views';
 import { QuestionMode, JLPTLevel, QuizState } from '@/models/types/enums';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
@@ -154,6 +155,8 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
         />
         {renderQuizContent()}
       </main>
+
+      <Footer />
     </div>
   );
 };

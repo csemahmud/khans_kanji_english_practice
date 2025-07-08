@@ -1,57 +1,100 @@
-# /public/docs
-Excel files for JLPT kanji levels used by the KanjiLoader hook.
+# Khan's Kanji English Practice
 
-# React + TypeScript + Vite
+A modern, interactive Kanji-English quiz app built with React, TypeScript, Tailwind CSS, and Framer Motion — designed to support learners of the Japanese language through intuitive and accessible gameplay.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## 🌟 About the Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This app offers a clean, responsive interface for users to practice Japanese Kanji and their English meanings. It supports multiple JLPT levels (N5–N1), customizable game modes, and a scoring system to encourage learning through positive feedback.
 
-## Expanding the ESLint configuration
+### 🔑 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🇯🇵 Quiz Modes: En ➜ 漢字 and 漢字 ➜ En
+- 🎯 JLPT Levels: Choose N5 to N1 or mix all levels
+- ⏱️ Time-bound play for focused practice
+- ✅ Intelligent scoring: Correct (+), Wrong (−), Skipped (neutral)
+- ⚙️ Built with React, TypeScript, Tailwind, and Framer Motion
+- 📊 Excel-based Kanji data loader (via XLSX parser)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📁 Kanji Excel Files
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### `/public/docs`
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+This directory contains the Excel files for JLPT Kanji levels (N5 to N1), which are used by the `KanjiLoader` hook to dynamically load and parse quiz content. Each file follows a consistent structure for reliable use within the app.
+
+---
+
+## 📸 Preview
+
+![App Screenshot](public/screenshots/app_demo_kanji.png)
+
+---
+
+## 🧑‍💻 Developer Profile
+
+### Khan Mahmudul Hasan
+
+A dedicated software engineer based in **Japan**, holding a **B.Sc. and M.Sc. in Computer Science and Engineering**. Fluent in **English**, conversational in **Japanese (JLPT N3)**, and actively involved in building tools that bridge cultures through language and technology.
+
+### 🧠 Tech Skills
+
+- **Frontend**: React, TypeScript, Tailwind CSS, Bootstrap, Framer Motion
+- **Backend**: Spring Boot, Laravel, PHP, Node.js
+- **Languages**: Java, JavaScript, TypeScript, Python, SQL, HTML/CSS
+- **Tools**: Git, GitHub, Vite, Figma, VS Code, Postman
+- **Databases**: PostgreSQL, MySQL, SQLite
+
+---
+
+## 🤝 Collaboration & Career Vision
+
+Khan aspires to contribute to projects that:
+- Promote **language learning**, **cultural exchange**, and **education**
+- Align with **Japanese business ethics** and **quality standards**
+- Allow **remote, freelance, or part-time flexibility** while working with innovative teams
+
+Currently open to:
+- 🧩 Freelance frontend projects
+- 👨‍🏫 Part-time teaching or EdTech opportunities
+- 🌐 Cross-cultural tech collaborations
+
+📄 For Japanese readers (日本語):
+- Khanは現在、ReactやTypeScriptを使ったアプリ開発に注力しており、日本文化と言語に深い興味を持っています。
+- 教育関連のプロジェクトや、英語・日本語対応のソフトウェア開発などの協力機会を歓迎します。
+
+---
+
+## 📬 Contact
+
+- 🌐 [LinkedIn](https://www.linkedin.com/in/mahmudulcse/)
+- 🐙 [GitHub](https://github.com/csemahmud)
+- 📘 [Facebook](https://www.facebook.com/cse.mahmud)
+- 📧 Email: lone.wolf.mahmud@gmail.com
+- 📞 Japan: +81-70-4381-4193
+
+---
+
+## 🛠️ How to Run Locally
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/csemahmud/khans_kanji_english_practice.git
+   cd khans_kanji_english_practice
+
+2. **Install dependencies:**
+   ```bash
+   npm install --legacy-peer-deps
+
+3. **Run the development server:**
+   ```bash
+   npm run dev --host
+
+4. **Access in browser:**
+   http://localhost:3020/
+
+Developed with care and purpose by
+Khan Mahmudul Hasan
+Nagoya, Japan
