@@ -76,6 +76,8 @@ Currently open to:
 - 📞 Japan: +81-70-4381-4193
 
 ---
+🔗 [Live Demo](https://csemahmud.github.io/khans_kanji_english_practice/)
+---
 
 ## 🛠️ How to Run Locally
 
@@ -98,3 +100,5 @@ Currently open to:
 Developed with care and purpose by
 Khan Mahmudul Hasan
 Nagoya, Japan
+
+#jlpt, #kanji, #quiz, #language-learning, #react-app
