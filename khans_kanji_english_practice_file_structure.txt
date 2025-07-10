@@ -38,7 +38,7 @@ src/
 │       ├── AnswerFeedback.tsx (Developed)
 │       ├── BackgroundTexture.tsx (Developed)
 │       ├── Header.tsx (Developed)
-│       ├── Footer.tsx (Pending) # Add "Develoved by Khan Mahmudul Hasan", my email, mobile, GitHub, Facebook, LinkedIn link
+│       ├── Footer.tsx (Developed) # Add "Develoved by Khan Mahmudul Hasan", my email, mobile, GitHub, Facebook, LinkedIn link
 │       ├── index.tsx (Developed)
 │       ├── QuizControls.tsx (Developed)
 │       ├── Watermarks.tsx (Developed)
@@ -51,10 +51,10 @@ src/
 │           └── Welcome.tsx (Developed)                  # Test feature (Welcome Screen)
 ├── features/                   # Feature modules (acts like 'Controllers' in MVC)
 │   └── controllers/
-│           └── KanjiTestController.tsx (In Progress)                  # Test feature (entire test logic, state)
+│           └── KanjiTestController.tsx (Developed)                  # Test feature (entire test logic, state)
 ├── hooks/
 │   ├── index.ts (Developed)
-│   ├── useKanjiQuiz.ts (In Progress: To Do: Update handleStartPlay() => start timer, update resetQuiz() => Reset remainingTime = const TIME_LIMIT, add handleTimeOut() when const remainingTime === 0 )
+│   ├── useKanjiQuiz.ts (Developed) # It is the main hook. All the major funtions are here.
 │   └── kanji/
 │       └── useKanjiLoader.ts (Developed)
 ├── services/

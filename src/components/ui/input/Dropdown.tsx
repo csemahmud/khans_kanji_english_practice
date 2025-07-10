@@ -1,4 +1,4 @@
-import { useId, type ReactNode, isValidElement } from "react";
+import { useId, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
