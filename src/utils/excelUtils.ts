@@ -1,6 +1,7 @@
 import * as XLSX from 'xlsx';
 import type { KanjiType } from '@/models/types/interfaces';
 import { IMAGE_PATH } from '@/models/constants';
+import { resolvePublicPath } from './pathUtils';
 
 /** Raw row from Excel sheet */
 interface ExcelRow {
@@ -29,7 +30,7 @@ const checkImageExists = async (imageUrl: string): Promise<boolean> => {
 };
 
 const buildImageUrl = (imagename: string) =>
-  `${IMAGE_PATH.replace(/\/+$/, '')}/${imagename.replace(/^\/+/, '')}`;
+  resolvePublicPath(`${IMAGE_PATH.replace(/\/+$/, '')}/${imagename.replace(/^\/+/, '')}`);
 
 
 /**
@@ -40,7 +41,7 @@ export const loadExcelFile = async (
   idCounterRef: React.MutableRefObject<number>
 ): Promise<KanjiType[]> => {
   try {
-    const response = await fetch(filePath);
+    const response = await fetch(resolvePublicPath(filePath));
     if (!response.ok) {
       throw new Error(`Failed to fetch ${filePath}: ${response.statusText}`);
     }

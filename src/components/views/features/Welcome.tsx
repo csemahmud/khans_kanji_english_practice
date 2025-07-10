@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Card, ImageWithFallback } from '@/components/ui';
 import { CORRECT_POINT, WRONG_POINT, SKIP_POINT, QUIZ_TITLE, TIME_LIMIT } from '@/models/constants';
 import { motion } from 'framer-motion';
+import { resolveFallbackImage, resolveProfileImage, resolvePublicPath } from '@/utils';
 
 interface WelcomeProps {
   handleStartPlay: () => void;
@@ -50,8 +51,8 @@ const Welcome: React.FC<WelcomeProps> = ({ handleStartPlay }) => {
         variants={itemVariant}
       >
         <ImageWithFallback
-            src="/important/khan_1.JPG"
-            fallbackSrc="/fallbacks/profile_fallback.jpg"
+            src={resolveProfileImage("khan_1.JPG")}
+            fallbackSrc={resolveFallbackImage("profile_fallback.jpg")}
             alt="Khan Mahmudul Hasan"
             className="w-40 h-52 object-cover rounded-xl border-2 border-gray-700 shadow-md"
         />
