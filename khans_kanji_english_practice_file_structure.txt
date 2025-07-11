@@ -88,6 +88,7 @@ src/
 │   ├── kanjiUtils.ts (Developed)    # shuffle, filter, generate question set
 │   ├── scoringUtils.ts (Developed) # Logic Correct Answer +4, Skip 0, Wrong Answer -1
 │   ├── timerUtils.ts (Developed) # After 120 Sec, set QuizState: Finish
+│   ├── pathUtils.ts (Developed) # Resolves Public Path
 │   └── excelToJson.ts (Pending) # Optional: loader script or logic
 ├── image-tools/ # Just Image resizing tool. Not Part of the main project.
 │   ├── README.md (Developed)
