@@ -92,6 +92,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
             showAnswer={showAnswer}
             score={score}
             remainingTime={remainingTime}
+            mode={mode}
             handleAnswer={handleAnswer}
             handleNext={handleNext}
             handleSkip={handleSkip}

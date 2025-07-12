@@ -77,84 +77,103 @@ export const AnswerFeedback: React.FC<Props> = ({
     <div className="flex flex-col md:flex-row gap-6 mt-6 w-full justify-center px-4">
       <div className="w-full md:max-w-[600px]">
         {showAnswer ? (
+          <>
+            <motion.div
+              key="feedback"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.4 }}
+              role="region"
+              aria-live="polite"
+            >
+              <Card
+                title="Feedback"
+                description="Here is your Feedback:"
+                footer={
+                  <></>
+                }
+                className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold"
+              >
+                <div className="mb-2">
+                  <p aria-label={`Meaning feedback: ${getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}`}>
+                    {getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}
+                  </p>
+                </div>
+                <div className="mb-2">
+                  <p aria-label={`Reading feedback: ${getFeedbackLabel(selectedReading, correctReading, 'Reading')}`}>
+                    {getFeedbackLabel(selectedReading, correctReading, 'Reading')}
+                  </p>
+                </div>
+                <div className="mb-2">
+                  <p aria-label="Correct answer prompt and values" className="whitespace-nowrap overflow-x-auto inline-flex items-center gap-x-6">
+                    <span className="font-bold inline-flex items-center gap-1">
+                      {currentQuestion.prompt}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      Correct Answer:
+                    </span>
+                  </p>
+                </div>
+                <div className="mb-2">
+                  <p className="whitespace-nowrap overflow-x-auto" aria-label="Correct meaning and reading feedback">
+                    Meaning:{' '}
+                    <span className={`font-bold inline-flex items-center gap-1 ${getFeedbackColorClass(selectedMeaning, correctMeaning)}`}>
+                      {getFeedbackSymbol(selectedMeaning, correctMeaning)} {correctMeaning}
+                    </span>{' '}
+                    | Reading:{' '}
+                    <span className={`font-bold inline-flex items-center gap-1 ${getFeedbackColorClass(selectedReading, correctReading)}`}>
+                      {getFeedbackSymbol(selectedReading, correctReading)} {correctReading}
+                    </span>
+                  </p>
+                </div>
+                <div className="max-w-md mx-auto">
+                  <IllustratedImageBox kanjiQuestion={currentQuestion} />
+                </div>
+              </Card>
+            </motion.div>
+            <motion.div
+              key="action1"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.4 }}
+              role="region"
+              aria-live="polite" 
+              className="fixed bottom-0 left-0 right-0 z-20 p-4 bg-white dark:bg-gray-900 border-t shadow-md flex flex-wrap items-center justify-center gap-4 mt-4 w-full">
+                {currentIndex === qLength - 1 ? (
+                  <>
+                    <Button variant="secondary" onClick={handleFinish}>
+                      Finish
+                    </Button>
+                    <Button variant="secondary" onClick={resetQuiz}>
+                      Restart
+                    </Button>
+                  </>
+                ) : (
+                  <Button variant="secondary" onClick={onNext}>
+                    Next Question
+                  </Button>
+                )}
+              </motion.div>
+            </>
+        ) : (
           <motion.div
-            key="feedback"
+            key="action2"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.4 }}
             role="region"
-            aria-live="polite"
-          >
-            <Card
-              title="Feedback"
-              description="Here is your Feedback:"
-              footer={
-                <div className="flex flex-wrap items-center justify-center gap-4 mt-4 w-full">
-                  {currentIndex === qLength - 1 ? (
-                    <>
-                      <Button variant="secondary" onClick={handleFinish}>
-                        Finish
-                      </Button>
-                      <Button variant="secondary" onClick={resetQuiz}>
-                        Restart
-                      </Button>
-                    </>
-                  ) : (
-                    <Button variant="secondary" onClick={onNext}>
-                      Next Question
-                    </Button>
-                  )}
-                </div>
-              }
-              className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold"
-            >
-              <div className="mb-2">
-                <p aria-label={`Meaning feedback: ${getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}`}>
-                  {getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}
-                </p>
-              </div>
-              <div className="mb-2">
-                <p aria-label={`Reading feedback: ${getFeedbackLabel(selectedReading, correctReading, 'Reading')}`}>
-                  {getFeedbackLabel(selectedReading, correctReading, 'Reading')}
-                </p>
-              </div>
-              <div className="mb-2">
-                <p aria-label="Correct answer prompt and values" className="whitespace-nowrap overflow-x-auto inline-flex items-center gap-x-6">
-                  <span className="font-bold inline-flex items-center gap-1">
-                    {currentQuestion.prompt}
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    Correct Answer:
-                  </span>
-                </p>
-              </div>
-              <div className="mb-2">
-                <p className="whitespace-nowrap overflow-x-auto" aria-label="Correct meaning and reading feedback">
-                  Meaning:{' '}
-                  <span className={`font-bold inline-flex items-center gap-1 ${getFeedbackColorClass(selectedMeaning, correctMeaning)}`}>
-                    {getFeedbackSymbol(selectedMeaning, correctMeaning)} {correctMeaning}
-                  </span>{' '}
-                  | Reading:{' '}
-                  <span className={`font-bold inline-flex items-center gap-1 ${getFeedbackColorClass(selectedReading, correctReading)}`}>
-                    {getFeedbackSymbol(selectedReading, correctReading)} {correctReading}
-                  </span>
-                </p>
-              </div>
-              <div className="max-w-md mx-auto">
-                <IllustratedImageBox kanjiQuestion={currentQuestion} />
-              </div>
-            </Card>
+            aria-live="polite" 
+            className="fixed bottom-0 left-0 right-0 z-20 p-4 bg-white dark:bg-gray-900 border-t shadow-md flex flex-wrap items-start justify-center gap-4 w-full">
+              <Button onClick={onSkip} variant="secondary">
+                Skip
+              </Button>
+              {selectedMeaning && selectedReading && (
+                <Button onClick={onSubmit}>Submit Answer</Button>
+              )}
           </motion.div>
-        ) : (
-          <div className="flex flex-wrap items-start justify-center gap-4 w-full">
-            <Button onClick={onSkip} variant="secondary">
-              Skip
-            </Button>
-            {selectedMeaning && selectedReading && (
-              <Button onClick={onSubmit}>Submit Answer</Button>
-            )}
-          </div>
         )}
       </div>
 

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Card } from '@/components/ui';
 import { AnswerChoices, AnswerFeedback } from '@/components/views';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
+import type { QuestionMode } from '@/models/types/enums';
 
 interface KanjiQuizPlayProps {
   qLength: number;
@@ -14,6 +15,7 @@ interface KanjiQuizPlayProps {
   showAnswer: boolean;
   score: Score;
   remainingTime: number;
+  mode: QuestionMode;
   handleAnswer: () => void;
   handleNext: () => void;
   handleSkip: () => void;
@@ -32,17 +34,29 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
   showAnswer,
   score,
   remainingTime,
+  mode,
   handleAnswer,
   handleNext,
   handleSkip,
   resetQuiz,
   handleFinish,
 }) => {
+
+  // Inside your component
+const feedbackRef = useRef<HTMLDivElement>(null); // 🟢 Create the ref
+
+useEffect(() => {
+  // This will run on every showAnswer change (like after clicking Next, Reset, or Finish)
+  if (showAnswer && feedbackRef.current) {
+    feedbackRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}, [showAnswer]); // 🟢 Runs every time showAnswer changes
+
   return (
     <div className="questions-container max-w-2xl w-full mx-auto mt-8 space-y-8">
       <Card
-        title={`Q${currentIndex + 1}: ${currentQuestion.prompt}`}
-        description="Select Meaning and Reading below"
+        title={`Q${currentIndex + 1} of ${qLength}: ${currentQuestion.prompt}`}
+        description="Select Meaning then select Reading below"
         variant="answer_choices"
         footer={
           <AnswerFeedback
@@ -63,21 +77,27 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
             handleFinish={handleFinish}
           />
         }
-      >
-        <div className="flex flex-col sm:flex-col md:flex-row gap-4 md:space-x-4">
+      >{!showAnswer && (
+        <div id="answer_card" className="flex flex-col sm:flex-col md:flex-row gap-4 md:space-x-4">
           <AnswerChoices
-            title="Meaning"
+            title={currentQuestion.prompt}
             choices={currentQuestion.answer.meaning.choices}
             selected={selectedMeaning}
+            currentIndex={currentIndex}
+            mode={mode}
             onSelect={setSelectedMeaning}
           />
           <AnswerChoices
-            title="Reading"
+            title={currentQuestion.prompt}
             choices={currentQuestion.answer.reading.choices}
             selected={selectedReading}
+            currentIndex={currentIndex}
+            mode={mode}
+            variant="Reading"
             onSelect={setSelectedReading}
           />
-        </div>
+        </div>)
+        }
       </Card>
     </div>
   );
