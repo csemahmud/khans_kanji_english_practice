@@ -93,7 +93,7 @@ useEffect(() => {
             selected={selectedReading}
             currentIndex={currentIndex}
             mode={mode}
-            variant="Reading"
+            variant="Pronunciation"
             onSelect={setSelectedReading}
           />
         </div>)

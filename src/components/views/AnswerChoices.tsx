@@ -8,7 +8,7 @@ interface Props {
   selected: string | null;
   currentIndex: number;
   mode: QuestionMode;
-  variant?: "Meaning" | "Reading";
+  variant?: "Meaning" | "Pronunciation";
   onSelect: (choice: string) => void;
 }
 
@@ -32,7 +32,7 @@ export const AnswerChoices: React.FC<Props> = ({
       {`Q${currentIndex + 1}(${
         (variant === "Meaning") ? 
         "a":"b"
-        }): What is the ${variant + ((variant === "Reading") ? "(Hiragaina)":"")} of this ${
+        }): What is the ${variant + ((variant === "Pronunciation") ? "(Hiragaina)":"")} of this ${
           (mode === QuestionMode.JP_TO_EN) ? "Kanji" : "Word"
         } ?`}
       </span>
@@ -41,7 +41,7 @@ export const AnswerChoices: React.FC<Props> = ({
       </h1>
 
       <RadioList
-        label={ variant + ((variant === "Reading") ? "(Hiragaina)":"")}
+        label={ variant + ((variant === "Pronunciation") ? "(Hiragaina)":"")}
         name={`answer-choice-${variant}`}
         options={options}
         selectedValue={selected || ""}
