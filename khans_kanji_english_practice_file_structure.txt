@@ -23,7 +23,7 @@ src/
 │   │   │   ├── Timer.tsx (Developed)
 │   │   │   └── index.tsx (Developed)
 │   │   ├── input/
-│   │   │   ├── RadioList.tsx (Developed)
+│   │   │   ├── RadioList.tsx (Deleted) # Removed for Simplicity . Used Pill style options instead
 │   │   │   ├── Dropdown.tsx (Developed)
 │   │   │   └── index.tsx (Developed)
 │   │   ├── visual/

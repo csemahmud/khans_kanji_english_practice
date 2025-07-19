@@ -41,23 +41,36 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
   resetQuiz,
   handleFinish,
 }) => {
+  const feedbackRef = useRef<HTMLDivElement>(null);
 
-  // Inside your component
-const feedbackRef = useRef<HTMLDivElement>(null); // 🟢 Create the ref
-
-useEffect(() => {
-  // This will run on every showAnswer change (like after clicking Next, Reset, or Finish)
-  if (showAnswer && feedbackRef.current) {
-    feedbackRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}, [showAnswer]); // 🟢 Runs every time showAnswer changes
+  useEffect(() => {
+    if (showAnswer && feedbackRef.current) {
+      feedbackRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [showAnswer]);
 
   return (
-    <div className="questions-container max-w-2xl w-full mx-auto mt-8 space-y-8">
+    <div className="w-full max-w-3xl mx-auto px-4 py-8 space-y-6 bg-[#1e1e2f] text-white rounded-xl shadow-lg transition-all duration-300">
+      {/* Progress Indicator */}
+      <div className="text-center text-sm text-gray-400 tracking-wide">
+        Question <span className="font-semibold text-white">{currentIndex + 1}</span> of {qLength}
+      </div>
+
+      {/* Kanji Display */}
+      <div className="text-center">
+        <div className="text-7xl font-extrabold text-white drop-shadow mb-2">
+          {currentQuestion.prompt}
+        </div>
+        <p className="text-sm text-gray-300">
+          Select the correct <span className="font-medium text-white">meaning</span> and <span className="font-medium text-white">reading</span>
+        </p>
+      </div>
+
+      {/* Answer Choices */}
       <Card
-        title={`Q${currentIndex + 1} of ${qLength}: ${currentQuestion.prompt}`}
-        description="Select Meaning then select Reading below"
-        variant="answer_choices"
+        title=""
+        variant="dark"
+        className="bg-[#2a2a40] border border-gray-600"
         footer={
           <AnswerFeedback
             qLength={qLength}
@@ -77,28 +90,33 @@ useEffect(() => {
             handleFinish={handleFinish}
           />
         }
-      >{!showAnswer && (
-        <div id="answer_card" className="flex flex-col sm:flex-col md:flex-row gap-4 md:space-x-4">
-          <AnswerChoices
-            title={currentQuestion.prompt}
-            choices={currentQuestion.answer.meaning.choices}
-            selected={selectedMeaning}
-            currentIndex={currentIndex}
-            mode={mode}
-            onSelect={setSelectedMeaning}
-          />
-          <AnswerChoices
-            title={currentQuestion.prompt}
-            choices={currentQuestion.answer.reading.choices}
-            selected={selectedReading}
-            currentIndex={currentIndex}
-            mode={mode}
-            variant="Pronunciation"
-            onSelect={setSelectedReading}
-          />
-        </div>)
-        }
+      >
+        {!showAnswer && (
+          <div className="flex flex-col md:flex-row gap-6">
+            <AnswerChoices
+              title={currentQuestion.prompt}
+              choices={currentQuestion.answer.meaning.choices}
+              selected={selectedMeaning}
+              currentIndex={currentIndex}
+              mode={mode}
+              variant="Meaning"
+              onSelect={setSelectedMeaning}
+            />
+            <AnswerChoices
+              title=""
+              choices={currentQuestion.answer.reading.choices}
+              selected={selectedReading}
+              currentIndex={currentIndex}
+              mode={mode}
+              variant="Pronunciation"
+              onSelect={setSelectedReading}
+            />
+          </div>
+        )}
       </Card>
+
+      {/* Feedback Anchor */}
+      <div ref={feedbackRef} />
     </div>
   );
 };

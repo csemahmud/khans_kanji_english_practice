@@ -22,36 +22,22 @@ interface Props {
   handleFinish: () => void;
 }
 
-const getFeedbackLabel = (
-  selected: string | null,
-  correct: string,
-  type: 'Meaning' | 'Reading'
-): string => {
+const getFeedbackLabel = (selected: string | null, correct: string, type: 'Meaning' | 'Reading') => {
   if (selected === null) return `⚠️ ${type} Skipped`;
   if (selected === correct) return `✅ ${type} Correct`;
   return `❌ ${type} Wrong`;
 };
 
-const getFortmattedPointString = (
-  point: number
-): string => {
-  return (point > 0) ? "+" + point : point.toString(); 
+const getFortmattedPointString = (point: number) => (point > 0 ? "+" + point : point.toString());
+
+const getFeedbackColorClass = (selected: string | null, correct: string) => {
+  if (selected === null) return 'text-yellow-400';
+  if (selected === correct) return 'text-green-400';
+  return 'text-red-400';
 };
 
-const getFeedbackColorClass = (
-  selected: string | null,
-  correct: string
-): string => {
-  if (selected === null) return 'bg-blue-600 text-yellow-400 pr-1';
-  if (selected === correct) return 'text-green-400'; // improved contrast
-  return 'text-red-400'; // improved contrast
-};
-
-const getFeedbackSymbol = (
-  selected: string | null,
-  correct: string
-): string => {
-  if (selected === null) return '⚠️ Skipped';
+const getFeedbackSymbol = (selected: string | null, correct: string) => {
+  if (selected === null) return '⚠️';
   if (selected === correct) return '✔️';
   return '❌';
 };
@@ -74,105 +60,86 @@ export const AnswerFeedback: React.FC<Props> = ({
   handleFinish,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row gap-6 mt-6 w-full justify-center px-4">
-      <div className="w-full md:max-w-[600px]">
+    <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full px-4 justify-center">
+      <div className="w-full lg:max-w-2xl">
         {showAnswer ? (
           <>
             <motion.div
               key="feedback"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.4 }}
               role="region"
               aria-live="polite"
             >
               <Card
                 title="Feedback"
-                description="Here is your Feedback:"
-                footer={
-                  <></>
-                }
-                className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold"
+                description="Check your answers below:"
+                className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               >
-                <div className="mb-2">
-                  <p aria-label={`Meaning feedback: ${getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}`}>
-                    {getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}
+                <div className="space-y-2 text-base sm:text-lg font-medium">
+                  <p>{getFeedbackLabel(selectedMeaning, correctMeaning, 'Meaning')}</p>
+                  <p>{getFeedbackLabel(selectedReading, correctReading, 'Reading')}</p>
+                  <p className="flex items-center flex-wrap gap-x-4">
+                    <span className="font-bold">{currentQuestion.prompt}</span>
+                    <span className="text-sm opacity-80">Correct Answer:</span>
                   </p>
-                </div>
-                <div className="mb-2">
-                  <p aria-label={`Reading feedback: ${getFeedbackLabel(selectedReading, correctReading, 'Reading')}`}>
-                    {getFeedbackLabel(selectedReading, correctReading, 'Reading')}
-                  </p>
-                </div>
-                <div className="mb-2">
-                  <p aria-label="Correct answer prompt and values" className="whitespace-nowrap overflow-x-auto inline-flex items-center gap-x-6">
-                    <span className="font-bold inline-flex items-center gap-1">
-                      {currentQuestion.prompt}
-                    </span>
-                    <span className="inline-flex items-center gap-1">
-                      Correct Answer:
-                    </span>
-                  </p>
-                </div>
-                <div className="mb-2">
-                  <p className="whitespace-nowrap overflow-x-auto" aria-label="Correct meaning and reading feedback">
-                    Meaning:{' '}
-                    <span className={`font-bold inline-flex items-center gap-1 ${getFeedbackColorClass(selectedMeaning, correctMeaning)}`}>
+                  <p className="flex flex-wrap items-center gap-x-6">
+                    <span className={`font-bold ${getFeedbackColorClass(selectedMeaning, correctMeaning)}`}>
                       {getFeedbackSymbol(selectedMeaning, correctMeaning)} {correctMeaning}
-                    </span>{' '}
-                    | Reading:{' '}
-                    <span className={`font-bold inline-flex items-center gap-1 ${getFeedbackColorClass(selectedReading, correctReading)}`}>
+                    </span>
+                    <span className={`font-bold ${getFeedbackColorClass(selectedReading, correctReading)}`}>
                       {getFeedbackSymbol(selectedReading, correctReading)} {correctReading}
                     </span>
                   </p>
                 </div>
-                <div className="max-w-md mx-auto">
+                <div className="mt-4 max-w-sm mx-auto">
                   <IllustratedImageBox kanjiQuestion={currentQuestion} />
                 </div>
               </Card>
             </motion.div>
+
             <motion.div
               key="action1"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.4 }}
               role="region"
-              aria-live="polite" 
-              className="fixed bottom-0 left-0 right-0 z-20 p-4 bg-white dark:bg-gray-900 border-t shadow-md flex flex-wrap items-center justify-center gap-4 mt-4 w-full">
-                {currentIndex === qLength - 1 ? (
-                  <>
-                    <Button variant="secondary" onClick={handleFinish}>
-                      Finish
-                    </Button>
-                    <Button variant="secondary" onClick={resetQuiz}>
-                      Restart
-                    </Button>
-                  </>
-                ) : (
-                  <Button variant="secondary" onClick={onNext}>
-                    Next Question
+              aria-live="polite"
+              className="fixed bottom-0 left-0 right-0 z-20 p-4 bg-white dark:bg-gray-900 border-t shadow-md flex flex-wrap justify-center gap-4 w-full"
+            >
+              {currentIndex === qLength - 1 ? (
+                <>
+                  <Button variant="secondary" onClick={handleFinish}>
+                    Finish
                   </Button>
-                )}
-              </motion.div>
-            </>
+                  <Button variant="secondary" onClick={resetQuiz}>
+                    Restart
+                  </Button>
+                </>
+              ) : (
+                <Button variant="secondary" onClick={onNext}>
+                  Next Question
+                </Button>
+              )}
+            </motion.div>
+          </>
         ) : (
           <motion.div
             key="action2"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.4 }}
             role="region"
-            aria-live="polite" 
-            className="fixed bottom-0 left-0 right-0 z-20 p-4 bg-white dark:bg-gray-900 border-t shadow-md flex flex-wrap items-start justify-center gap-4 w-full">
-              <Button onClick={onSkip} variant="secondary">
-                Skip
-              </Button>
-              {selectedMeaning && selectedReading && (
-                <Button onClick={onSubmit}>Submit Answer</Button>
-              )}
+            aria-live="polite"
+            className="fixed bottom-0 left-0 right-0 z-20 p-4 bg-white dark:bg-gray-900 border-t shadow-md flex flex-wrap justify-center gap-4 w-full"
+          >
+            <Button onClick={onSkip} variant="secondary">
+              Skip
+            </Button>
+            {selectedMeaning && selectedReading && (
+              <Button onClick={onSubmit}>Submit Answer</Button>
+            )}
           </motion.div>
         )}
       </div>
@@ -182,25 +149,19 @@ export const AnswerFeedback: React.FC<Props> = ({
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4 }}
-        className="w-full md:max-w-[300px]"
+        className="w-full lg:max-w-sm"
       >
         <Card
           title="Score"
-          description={`Correct: ${
-            getFortmattedPointString(CORRECT_POINT) 
-          }, Wrong: ${
-            getFortmattedPointString(WRONG_POINT)
-          }, Skip: ${
-            getFortmattedPointString(SKIP_POINT)
-          }`}
+          description={`Correct: ${getFortmattedPointString(CORRECT_POINT)}, Wrong: ${getFortmattedPointString(WRONG_POINT)}, Skip: ${getFortmattedPointString(SKIP_POINT)}`}
+          className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           footer={
             score.currentScore < 0 ? (
-              <span className="text-red-400">
+              <span className="text-sm text-red-400">
                 Try to answer carefully. Random guesses are hurting your score.
               </span>
             ) : null
           }
-          className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold"
         >
           <Timer timeLeft={remainingTime} totalDuration={TIME_LIMIT} />
           <ScoreBoard

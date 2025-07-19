@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, ImageWithFallback } from '@/components/ui';
 import { CORRECT_POINT, WRONG_POINT, SKIP_POINT, QUIZ_TITLE, TIME_LIMIT } from '@/models/constants';
 import { motion } from 'framer-motion';
-import { resolveFallbackImage, resolveProfileImage, resolvePublicPath } from '@/utils';
+import { resolveFallbackImage, resolveProfileImage } from '@/utils';
 
 interface WelcomeProps {
   handleStartPlay: () => void;
