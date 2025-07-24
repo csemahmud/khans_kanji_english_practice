@@ -6,7 +6,6 @@ interface HeaderProps {
   scrolled: boolean;
 }
 
-// 👇 Forward the ref directly to the <header> element
 export const Header = forwardRef<HTMLElement, HeaderProps>(({ scrolled }, headerRef) => {
   return (
     <header
@@ -18,9 +17,29 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(({ scrolled }, header
         scrolled ? 'shadow-md' : 'shadow-none'
       )}
     >
-      <h2 className="text-3xl leading-relaxed font-semibold text-center py-6 text-gray-800 dark:text-white tracking-wide flex items-center justify-center gap-3">
-        <span role="img" aria-hidden="true" aria-label="flag" className="text-3xl">🎌</span>
-        <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent drop-shadow-sm">
+      <h2
+        className={clsx(
+          'flex items-center justify-center gap-2',
+          'text-center font-semibold text-gray-800 dark:text-white tracking-wide',
+          'py-4 sm:py-6 px-2 leading-tight',
+          'whitespace-nowrap overflow-hidden text-ellipsis',
+          'text-fluid-xl' // ✅ Tailwind's custom clamp() class
+        )}
+      >
+        <span
+          role="img"
+          aria-hidden="true"
+          aria-label="flag"
+          className="text-fluid-xl" // ✅ Consistent use of Tailwind custom class
+        >
+          🎌
+        </span>
+        <span
+          className={clsx(
+            'bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent drop-shadow-sm',
+            'whitespace-nowrap overflow-hidden text-ellipsis'
+          )}
+        >
           {QUIZ_TITLE}
         </span>
       </h2>
@@ -28,4 +47,4 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(({ scrolled }, header
   );
 });
 
-Header.displayName = 'Header'; // Optional: good practice for dev tools
+Header.displayName = 'Header';

@@ -11,6 +11,9 @@ export default {
       backgroundImage: {
         'kanji-texture': "url('/pattern.svg')",
       },
+      fontSize: {
+        'fluid-xl': 'clamp(1rem, 5vw, 2rem)',
+      },
     },
   },
   plugins: [],
