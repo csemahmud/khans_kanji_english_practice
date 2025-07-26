@@ -37,9 +37,7 @@ function App() {
           <KanjiTestController />
         </main>
 
-        <div className="relative z-10">
-          <Footer />
-        </div>
+        <Footer />
       </div>
     </>
   );

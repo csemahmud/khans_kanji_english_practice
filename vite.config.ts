@@ -13,5 +13,17 @@ export default defineConfig({
   },
   server: {
     port: 3020
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'ui-libs': ['framer-motion', 'sweetalert2', 'xlsx'],
+          // add more libraries as needed
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000, // default is 500 (in KB)
   }
 });
