@@ -1,5 +1,5 @@
 // src/features/controllers/KanjiTestController.tsx
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useKanjiLoader, useKanjiQuiz } from '@/hooks';
 import { QuestionMode, JLPTLevel } from '@/models/types/enums';
 import KanjiTestView from '@/components/views/features/KanjiTestView';
@@ -7,10 +7,7 @@ import KanjiTestView from '@/components/views/features/KanjiTestView';
 const KanjiTestController: React.FC = () => {
   const [mode, setMode] = useState<QuestionMode>(QuestionMode.JP_TO_EN);
   const [level, setLevel] = useState<JLPTLevel | null>(null);
-  const [scrolled] = useState(false);
-
-  const headerRef = useRef(null);
-
+  
   const { kanjiList, isLoading, error } = useKanjiLoader(level);
 
   const {
@@ -37,8 +34,6 @@ const KanjiTestController: React.FC = () => {
 
   return (
     <KanjiTestView
-      headerRef={headerRef}
-      scrolled={scrolled}
       mode={mode}
       setMode={setMode}
       level={level}

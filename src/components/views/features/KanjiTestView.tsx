@@ -4,8 +4,6 @@ import {
   QuizControls,
   BackgroundTexture,
   Watermarks,
-  Header,
-  Footer,
 } from '@/components/views';
 import { QuestionMode, JLPTLevel, QuizState } from '@/models/types/enums';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
@@ -14,8 +12,6 @@ import Welcome from './Welcome';
 import { FinalScore } from './FinalScore';
 
 interface KanjiTestViewProps {
-  headerRef: React.RefObject<HTMLElement>;
-  scrolled: boolean;
   mode: QuestionMode;
   setMode: React.Dispatch<React.SetStateAction<QuestionMode>>;
   level: JLPTLevel | null;
@@ -44,8 +40,6 @@ interface KanjiTestViewProps {
 }
 
 const KanjiTestView: React.FC<KanjiTestViewProps> = ({
-  headerRef,
-  scrolled,
   mode,
   setMode,
   level,
@@ -144,7 +138,6 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
     <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
       <BackgroundTexture />
       <Watermarks />
-      <Header scrolled={scrolled} ref={headerRef} />
 
       <main className="pt-[72px] pb-12 px-4 flex flex-col items-center relative z-10">
         <QuizControls
@@ -156,8 +149,6 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
         />
         {renderQuizContent()}
       </main>
-
-      <Footer />
     </div>
   );
 };
