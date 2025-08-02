@@ -9,7 +9,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => {
   return (
-    <footer role="contentinfo" className="bg-gray-900 text-gray-200 py-12 px-4">
+    <footer role="contentinfo" className="bg-gray-900 text-gray-200 py-12 px-4 mb-5">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Logo and Introduction */}
         <div>
