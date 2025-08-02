@@ -1,12 +1,7 @@
-import React from 'react';
-import { Button, Card, ImageWithFallback } from '@/components/ui';
+import { Card, ImageWithFallback } from '@/components/ui';
 import { CORRECT_POINT, WRONG_POINT, SKIP_POINT, QUIZ_TITLE, TIME_LIMIT } from '@/models/constants';
 import { motion } from 'framer-motion';
 import { resolveFallbackImage, resolveProfileImage } from '@/utils';
-
-interface WelcomeProps {
-  handleStartPlay: () => void;
-}
 
 const getFortmattedPointString = (point: number): string => {
   return point > 0 ? '+' + point : point.toString();
@@ -37,7 +32,7 @@ export function formatToMinute(sec: number): string {
   return `${minutes}:${paddedSeconds}`;
 }
 
-const Welcome: React.FC<WelcomeProps> = ({ handleStartPlay }) => {
+const Welcome = () => {
   return (
     <motion.div
       className="min-h-screen bg-gray-900 text-white flex flex-col justify-center items-center px-4 py-10"
@@ -68,25 +63,6 @@ const Welcome: React.FC<WelcomeProps> = ({ handleStartPlay }) => {
             }
           >
             <>
-              <motion.div
-                className="flex flex-col md:flex-row items-center justify-between gap-4 my-10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <p className="text-gray-200 text-sm md:text-base">
-                  Click Start to continue your Kanji journey...
-                </p>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button
-                    onClick={handleStartPlay}
-                    aria-label="Start Quiz"
-                    role="button"
-                  >
-                    Start
-                  </Button>
-                </motion.div>
-              </motion.div>
 
               {/* Developer Bio Section */}
               <section

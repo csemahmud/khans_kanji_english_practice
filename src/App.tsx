@@ -4,11 +4,39 @@ import { Helmet } from 'react-helmet-async';
 import KanjiTestController from './features/controllers/KanjiTestController';
 import { QUIZ_TITLE } from './models/constants/uiText';
 import { Footer, Header } from './components/views';
+import { useKanjiLoader, useKanjiQuiz } from './hooks';
+import { QuestionMode, JLPTLevel } from './models/types/enums';
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const headerRef = useRef<HTMLElement>(null);
+  const [mode, setMode] = useState<QuestionMode>(QuestionMode.JP_TO_EN);
+  const [level, setLevel] = useState<JLPTLevel | null>(null);
+
+  const { kanjiList, isLoading, error } = useKanjiLoader(level);
+
+  const {
+    questionList,
+    qLength,
+    currentQuestion,
+    currentIndex,
+    handleAnswer,
+    handleSkip,
+    handleNext,
+    selectedMeaning,
+    selectedReading,
+    setSelectedMeaning,
+    setSelectedReading,
+    showAnswer,
+    score,
+    quizState,
+    remainingTime,
+    isTimedUp,
+    resetQuiz,
+    handleStartPlay,
+    handleFinish,
+  } = useKanjiQuiz(kanjiList, mode);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,10 +62,35 @@ function App() {
         <Header scrolled={scrolled} ref={headerRef} scrollProgress={scrollProgress} />
 
         <main className="flex-grow px-4 sm:px-6 lg:px-8 py-6 mb-6 sm:mb-8 md:mb-10">
-          <KanjiTestController />
+          <KanjiTestController 
+            mode={mode}
+            setMode={setMode}
+            level={level}
+            setLevel={setLevel}
+            isLoading={isLoading}
+            error={error}
+            questionList={questionList}
+            qLength={qLength}
+            currentQuestion={currentQuestion}
+            currentIndex={currentIndex}
+            selectedMeaning={selectedMeaning}
+            selectedReading={selectedReading}
+            setSelectedMeaning={setSelectedMeaning}
+            setSelectedReading={setSelectedReading}
+            showAnswer={showAnswer}
+            score={score}
+            quizState={quizState}
+            remainingTime={remainingTime}
+            isTimedUp={isTimedUp}
+            handleAnswer={handleAnswer}
+            handleSkip={handleSkip}
+            handleNext={handleNext}
+            resetQuiz={resetQuiz}
+            handleFinish={handleFinish}
+          />
         </main>
 
-        <Footer />
+        <Footer quizState={quizState} handleStartPlay={handleStartPlay} />
       </div>
     </>
   );

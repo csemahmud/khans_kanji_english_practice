@@ -5,39 +5,11 @@ import {
   BackgroundTexture,
   Watermarks,
 } from '@/components/views';
-import { QuestionMode, JLPTLevel, QuizState } from '@/models/types/enums';
-import type { KanjiQuestion, Score } from '@/models/types/interfaces';
+import { QuizState } from '@/models/types/enums';
+import type { KanjiTestViewProps } from '@/models/types/interfaces';
 import KanjiQuizPlay from './KanjiQuizPlay';
 import Welcome from './Welcome';
 import { FinalScore } from './FinalScore';
-
-interface KanjiTestViewProps {
-  mode: QuestionMode;
-  setMode: React.Dispatch<React.SetStateAction<QuestionMode>>;
-  level: JLPTLevel | null;
-  setLevel: React.Dispatch<React.SetStateAction<JLPTLevel | null>>;
-  isLoading: boolean;
-  error: Error | null;
-  questionList: KanjiQuestion[];
-  qLength: number;
-  currentQuestion: KanjiQuestion | null;
-  currentIndex: number;
-  selectedMeaning: string | null;
-  selectedReading: string | null;
-  setSelectedMeaning: (value: string | null) => void;
-  setSelectedReading: (value: string | null) => void;
-  showAnswer: boolean;
-  score: Score;
-  quizState: QuizState;
-  remainingTime: number;
-  isTimedUp: boolean,
-  handleAnswer: () => void;
-  handleNext: () => void;
-  handleSkip: () => void;
-  resetQuiz: () => void;
-  handleStartPlay: () => void;
-  handleFinish: () => void;
-}
 
 const KanjiTestView: React.FC<KanjiTestViewProps> = ({
   mode,
@@ -63,7 +35,6 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
   handleNext,
   handleSkip,
   resetQuiz,
-  handleStartPlay,
   handleFinish,
 }) => {
 
@@ -71,7 +42,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
   const renderQuizContent = () => {
     switch (quizState) {
       case QuizState.Welcome:
-        return <Welcome handleStartPlay={handleStartPlay} />;
+        return <Welcome />;
 
       case QuizState.Play:
         return (

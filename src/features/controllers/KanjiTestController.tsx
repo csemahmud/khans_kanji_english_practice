@@ -1,37 +1,35 @@
 // src/features/controllers/KanjiTestController.tsx
-import React, { useState } from 'react';
-import { useKanjiLoader, useKanjiQuiz } from '@/hooks';
-import { QuestionMode, JLPTLevel } from '@/models/types/enums';
+import React from 'react';
 import KanjiTestView from '@/components/views/features/KanjiTestView';
+import type { KanjiTestViewProps } from '@/models/types/interfaces';
 
-const KanjiTestController: React.FC = () => {
-  const [mode, setMode] = useState<QuestionMode>(QuestionMode.JP_TO_EN);
-  const [level, setLevel] = useState<JLPTLevel | null>(null);
+const KanjiTestController: React.FC<KanjiTestViewProps> = ({
+  mode,
+  setMode,
+  level,
+  setLevel,
+  isLoading,
+  error,
+  questionList,
+  qLength,
+  currentQuestion,
+  currentIndex,
+  selectedMeaning,
+  selectedReading,
+  setSelectedMeaning,
+  setSelectedReading,
+  showAnswer,
+  score,
+  quizState,
+  remainingTime,
+  isTimedUp,
+  handleAnswer,
+  handleNext,
+  handleSkip,
+  resetQuiz,
+  handleFinish,
+}) => {
   
-  const { kanjiList, isLoading, error } = useKanjiLoader(level);
-
-  const {
-    questionList,
-    qLength,
-    currentQuestion,
-    currentIndex,
-    handleAnswer,
-    handleSkip,
-    handleNext,
-    selectedMeaning,
-    selectedReading,
-    setSelectedMeaning,
-    setSelectedReading,
-    showAnswer,
-    score,
-    quizState,
-    remainingTime,
-    isTimedUp,
-    resetQuiz,
-    handleStartPlay,
-    handleFinish,
-  } = useKanjiQuiz(kanjiList, mode);
-
   return (
     <KanjiTestView
       mode={mode}
@@ -57,7 +55,6 @@ const KanjiTestController: React.FC = () => {
       handleSkip={handleSkip}
       handleNext={handleNext}
       resetQuiz={resetQuiz}
-      handleStartPlay={handleStartPlay}
       handleFinish={handleFinish}
     />
   );
