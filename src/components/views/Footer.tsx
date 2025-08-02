@@ -9,11 +9,22 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => {
   return (
-    <footer role="contentinfo" className="bg-gray-900 text-gray-200 py-12 px-4 mb-5">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+    <footer role="contentinfo" className="bg-gray-900 text-gray-200 py-12 px-4">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 mb-14">
         {/* Logo and Introduction */}
         <div>
-          <img loading="lazy" src={Logo} alt="Khan's Logo" className="w-32 mb-4" />
+          <motion.div 
+            transition-all 
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            duration-200 
+            ease-in-out 
+            translate-y-1 
+            group-hover:translate-y-0
+            className="bg-white">
+            <img loading="lazy" src={Logo} alt="Khan's Logo" className="w-32 mb-4" />
+          </motion.div>
           <p className="text-sm leading-relaxed">
             Developed by <strong>Khan Mahmudul Hasan</strong>, a dedicated software engineer based in Japan.
             Specializing in modern frontend technologies and committed to building accessible,
@@ -36,12 +47,22 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
                 aria-label="Visit Khan's Facebook profile"
                 className="flex items-center hover:text-white transition-colors duration-200"
               >
-                <img 
-                  loading="lazy"
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-                  alt="Facebook"
-                  className="w-6 h-6 mr-2 opacity-80 group-hover:opacity-100 transition-opacity duration-200"
-                />
+                <motion.div 
+                  transition-all 
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                  duration-200 
+                  ease-in-out 
+                  translate-y-1 
+                  group-hover:translate-y-0>
+                  <img 
+                    loading="lazy"
+                    src="icons/Facebook.png"
+                    alt="Facebook"
+                    className="w-6 h-6 mr-2 opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+                  />
+                </motion.div>
                 Facebook: cse.mahmud
               </a>
             </li>
@@ -53,12 +74,22 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
                 aria-label="Visit Khan's LinkedIn profile"
                 className="flex items-center hover:text-white transition-colors duration-200"
               >
-                <img
-                  loading="lazy"
-                  src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
-                  alt="LinkedIn"
-                  className="w-6 h-6 mr-2 opacity-80 group-hover:opacity-100 transition-opacity duration-200"
-                />
+                <motion.div 
+                  transition-all 
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                  duration-200 
+                  ease-in-out 
+                  translate-y-1 
+                  group-hover:translate-y-0>
+                  <img
+                    loading="lazy"
+                    src="icons/LinkedIn.png"
+                    alt="LinkedIn"
+                    className="w-6 h-6 mr-2 opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+                  />
+                  </motion.div>
                 LinkedIn: /in/mahmudulcse
               </a>
             </li>
@@ -70,12 +101,22 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
                 aria-label="Visit Khan's GitHub profile"
                 className="flex items-center hover:text-white transition-colors duration-200"
               >
-                <img
-                  loading="lazy"
-                  src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-                  alt="GitHub"
-                  className="w-6 h-6 mr-2 opacity-80 group-hover:opacity-100 transition-opacity duration-200"
-                />
+                <motion.div 
+                  transition-all 
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                  duration-200 
+                  ease-in-out 
+                  translate-y-1 
+                  group-hover:translate-y-0>
+                  <img
+                    loading="lazy"
+                    src="icons/GitHub.png"
+                    alt="GitHub"
+                    className="w-6 h-6 mr-2 opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+                  />
+                  </motion.div>
                 GitHub: @csemahmud
               </a>
             </li>
@@ -107,7 +148,7 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
         <p className="text-gray-200 text-sm md:text-base">
           Click Start to continue your Kanji journey...
         </p>
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <motion.div whileHover={{ scale: 1.1, rotate: 2 }} whileTap={{ scale: 0.95 }}>
         <div className="relative group inline-block">
           <Button
             onClick={handleStartPlay}
@@ -126,7 +167,7 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
         </div>
         </motion.div>
       </motion.div>
-      )};
+      )}
     </footer>
   );
 };

@@ -110,7 +110,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
       <BackgroundTexture />
       <Watermarks />
 
-      <main className="pt-[72px] pb-12 px-4 flex flex-col items-center relative z-10">
+      <main className="py-2 sm:py-7 px-4 flex flex-col items-center relative z-10">
         <QuizControls
           mode={mode}
           setMode={setMode}

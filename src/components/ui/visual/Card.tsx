@@ -24,7 +24,7 @@ export const Card: React.FC<CardProps> = ({
   variant = "default",
 }) => {
   const baseStyles =
-    "rounded-2xl p-6 w-full border shadow transition-all duration-300";
+    "rounded-2xl px-6 py-6 sm:py-2 w-full border shadow transition-all duration-300";
 
   const variantStyles: Record<string, string> = {
     default: "bg-white text-gray-900 border-gray-200",
@@ -37,35 +37,35 @@ export const Card: React.FC<CardProps> = ({
   const iconMap: Record<string, JSX.Element> = {
     correct: (
       <CheckCircleIcon
-        className="h-6 w-6 text-green-400"
+        className="h-0 sm:h-6 w-0 sm:w-6 text-green-400"
         aria-hidden="true"
         role="presentation"
       />
     ),
     incorrect: (
       <ExclamationCircleIcon
-        className="h-6 w-6 text-red-400"
+        className="h-0 sm:h-6 w-0 sm:w-6 text-red-400"
         aria-hidden="true"
         role="presentation"
       />
     ),
     default: (
       <InformationCircleIcon
-        className="h-6 w-6 text-blue-400"
+        className="h-0 sm:h-6 w-0 sm:w-6 text-blue-400"
         aria-hidden="true"
         role="presentation"
       />
     ),
     answer_choices: (
       <InformationCircleIcon
-        className="h-6 w-6 text-blue-400"
+        className="h-0 sm:h-6 w-0 sm:w-6 text-blue-400"
         aria-hidden="true"
         role="presentation"
       />
     ),
     dark: (
       <InformationCircleIcon
-        className="h-6 w-6 text-yellow-400"
+        className="h-0 sm:h-6 w-0 sm:w-6 text-yellow-400"
         aria-hidden="true"
         role="presentation"
       />
@@ -96,7 +96,7 @@ export const Card: React.FC<CardProps> = ({
       {/* Header */}
       {title && (
         <header
-          className="flex items-center gap-3 mb-4"
+          className="flex items-center justify-center text-center gap-3 mb-1 sm:mb-4"
           aria-label="Card header"
         >
           <div>{iconMap[variant]}</div>
@@ -124,7 +124,7 @@ export const Card: React.FC<CardProps> = ({
 
       {/* Body */}
       {children && (
-        <section aria-label="Card content" className="mb-4">
+        <section aria-label="Card content" className="mb-1 sm:mb-4">
           {children}
         </section>
       )}
