@@ -31,6 +31,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
   quizState,
   remainingTime,
   isTimedUp,
+  topViewDivRef,
   handleAnswer,
   handleNext,
   handleSkip,
@@ -58,6 +59,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
             score={score}
             remainingTime={remainingTime}
             mode={mode}
+            topViewDivRef={topViewDivRef}
             handleAnswer={handleAnswer}
             handleNext={handleNext}
             handleSkip={handleSkip}

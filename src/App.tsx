@@ -33,6 +33,7 @@ function App() {
     quizState,
     remainingTime,
     isTimedUp,
+    topViewDivRef,
     resetQuiz,
     handleStartPlay,
     handleFinish,
@@ -82,6 +83,7 @@ function App() {
             quizState={quizState}
             remainingTime={remainingTime}
             isTimedUp={isTimedUp}
+            topViewDivRef={topViewDivRef}
             handleAnswer={handleAnswer}
             handleSkip={handleSkip}
             handleNext={handleNext}

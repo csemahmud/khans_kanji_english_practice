@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, type RefObject } from 'react';
 import { Card } from '@/components/ui';
 import { AnswerChoices, AnswerFeedback } from '@/components/views';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
 import type { QuestionMode } from '@/models/types/enums';
+import { motion } from 'framer-motion';
 
 interface KanjiQuizPlayProps {
   qLength: number;
@@ -16,6 +17,7 @@ interface KanjiQuizPlayProps {
   score: Score;
   remainingTime: number;
   mode: QuestionMode;
+  topViewDivRef: RefObject<HTMLDivElement>;
   handleAnswer: () => void;
   handleNext: () => void;
   handleSkip: () => void;
@@ -35,6 +37,7 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
   score,
   remainingTime,
   mode,
+  topViewDivRef,
   handleAnswer,
   handleNext,
   handleSkip,
@@ -49,26 +52,43 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
     }
   }, [showAnswer]);
 
+  // ✅ Guard clause
+  if (!currentQuestion) {
+    return (
+      <div className="w-full max-w-3xl mx-auto px-4 py-8 text-center text-red-500">
+        Error: Question data is not available.
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 py-8 space-y-6 bg-[#1e1e2f] text-white rounded-xl shadow-lg transition-all duration-300">
+    <motion.div
+      id="topViewDiv"
+      role="main"
+      aria-labelledby="kanji-question-title"
+      ref={topViewDivRef}
+      className="w-full max-w-3xl mx-auto px-4 py-8 space-y-6 bg-[#1e1e2f] text-white rounded-xl shadow-lg transition-all duration-300"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
       {/* Progress Indicator */}
-      <div className="text-center text-sm text-gray-400 tracking-wide">
-        Question <span className="font-semibold text-white">{currentIndex + 1}</span> of {qLength}
+      <div className="text-center text-sm text-gray-300 tracking-wide">
+        Question <span className="font-semibold text-white/90">{currentIndex + 1}</span> of {qLength}
       </div>
 
       {/* Kanji Display */}
-      <div className="text-center">
-        <div className="text-7xl font-extrabold text-white drop-shadow mb-2">
+      <div className="text-center" role="region" aria-label="Kanji Prompt Section">
+        <div id="kanji-question-title" className="text-7xl font-extrabold text-white/90 drop-shadow mb-2">
           {currentQuestion.prompt}
         </div>
-        <p className="text-sm text-gray-300">
-          Select the correct <span className="font-medium text-white">meaning</span> and <span className="font-medium text-white">reading</span>
+        <p className="text-sm text-gray-200" aria-label="Instruction to select correct meaning and reading">
+          Select the correct <span className="font-medium text-white/90">meaning</span> and <span className="font-medium text-white/90">reading</span>
         </p>
       </div>
 
       {/* Answer Choices */}
       <Card
-        title=""
         variant="dark"
         className="bg-[#2a2a40] border border-gray-600"
         footer={
@@ -92,7 +112,11 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
         }
       >
         {!showAnswer && (
-          <div className="flex flex-col md:flex-row gap-6">
+          <div
+            className="flex flex-col md:flex-row gap-6"
+            role="region"
+            aria-label="Answer choices for meaning and pronunciation"
+          >
             <AnswerChoices
               title={currentQuestion.prompt}
               choices={currentQuestion.answer.meaning.choices}
@@ -117,7 +141,7 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
 
       {/* Feedback Anchor */}
       <div ref={feedbackRef} />
-    </div>
+    </motion.div>
   );
 };
 

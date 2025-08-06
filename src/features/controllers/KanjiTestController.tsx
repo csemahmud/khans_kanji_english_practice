@@ -23,6 +23,7 @@ const KanjiTestController: React.FC<KanjiTestViewProps> = ({
   quizState,
   remainingTime,
   isTimedUp,
+  topViewDivRef,
   handleAnswer,
   handleNext,
   handleSkip,
@@ -51,6 +52,7 @@ const KanjiTestController: React.FC<KanjiTestViewProps> = ({
       quizState={quizState}
       remainingTime={remainingTime}
       isTimedUp={isTimedUp}
+      topViewDivRef={topViewDivRef}
       handleAnswer={handleAnswer}
       handleSkip={handleSkip}
       handleNext={handleNext}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { generateKanjiQuestions, calculateScore } from '@/utils';
 import { startTimer, clearTimer } from '@/utils/timerUtils';
 import { TIME_LIMIT } from '@/models/constants/quizConstants';
@@ -23,6 +23,7 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
   const [quizState, setQuizState] = useState<QuizState>(QuizState.Welcome);
   const [remainingTime, setRemainingTime] = useState<number>(TIME_LIMIT);
   const [isTimedUp, setIsTimedUp] = useState(false);
+  const topViewDivRef = useRef<HTMLDivElement>(null);
 
   const handleQuizState = (newState: QuizState) => {
     setQuizState(newState);
@@ -78,6 +79,17 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     );
   };
 
+  // Scroll to topViewDivRef
+  const scrollToTop = () => {
+    setTimeout(() => {
+      topViewDivRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    }, 100); // Adjust delay as needed
+  };
+
   const handleAnswer = () => {
     if (wasSkipped) return;
 
@@ -85,6 +97,8 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     const { updatedScore } = calculateScore(isCorrect, score);
     setScore(updatedScore);
     setShowAnswer(true);
+
+    scrollToTop();
   };
 
   const handleSkip = () => {
@@ -94,6 +108,8 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     setShowAnswer(true);
     setSelectedMeaning(null);
     setSelectedReading(null);
+
+    scrollToTop();
   };
 
   const handleNext = () => {
@@ -104,6 +120,8 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
       setShowAnswer(false);
       setWasSkipped(false);
     }
+
+    scrollToTop();
   };
 
   const resetQuiz = () => {
@@ -122,6 +140,8 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     if (shouldTransitionToPlay) {
     handleQuizState(QuizState.Play);
     }
+
+    scrollToTop();
   };
 
   const handleStartPlay = () => {
@@ -160,6 +180,7 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     score,
     remainingTime,
     isTimedUp,
+    topViewDivRef,
     handleAnswer,
     handleSkip,
     handleNext,

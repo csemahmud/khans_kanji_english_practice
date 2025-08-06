@@ -1,6 +1,7 @@
 import type { JLPTLevel, QuestionMode, QuizState } from "../enums";
 import type { KanjiQuestion } from "./kanji";
 import type { Score } from "./Score";
+import type { RefObject } from "react"; // ✅ Import RefObject
 
 export interface KanjiTestViewProps {
   mode: QuestionMode;
@@ -22,6 +23,7 @@ export interface KanjiTestViewProps {
   quizState: QuizState;
   remainingTime: number;
   isTimedUp: boolean,
+  topViewDivRef: RefObject<HTMLDivElement>; // ✅ Correct type here,
   handleAnswer: () => void;
   handleNext: () => void;
   handleSkip: () => void;
