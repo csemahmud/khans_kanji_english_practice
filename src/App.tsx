@@ -56,7 +56,7 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>{QUIZ_TITLE}</title>
+        <title>{QUIZ_TITLE} | JLPT N5–N1 Practice</title>
       </Helmet>
 
       <div className="flex flex-col min-h-screen bg-white dark:bg-[#1f1f1f] text-gray-800 dark:text-gray-100 transition-colors duration-300">

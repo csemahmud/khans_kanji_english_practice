@@ -13,17 +13,18 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 mb-14">
         {/* Logo and Introduction */}
         <div>
-          <motion.div 
-            transition-all 
+          <motion.div  
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.4 }}
-            duration-200 
-            ease-in-out 
-            translate-y-1 
-            group-hover:translate-y-0
-            className="bg-white">
-            <img loading="lazy" src={Logo} alt="Khan's Logo" className="w-32 mb-4" />
+            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-4 rounded-full flex items-center justify-center bg-[radial-gradient(circle,white_40%,#4b5563_100%)] shadow-md"
+          >
+            <img
+              loading="lazy"
+              src={Logo}
+              alt="Khan's Logo"
+              className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-cover rounded-full"
+            />
           </motion.div>
           <p className="text-sm leading-relaxed">
             Developed by <strong>Khan Mahmudul Hasan</strong>, a dedicated software engineer based in Japan.
@@ -45,17 +46,13 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
                 target="_blank"
                 rel="me noopener noreferrer"
                 aria-label="Visit Khan's Facebook profile"
-                className="flex items-center hover:text-white transition-colors duration-200"
+                className="flex items-center hover:text-white transition-colors duration-200 focus-visible:outline"
               >
-                <motion.div 
-                  transition-all 
+                <motion.div
                   initial={{ y: 10, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.4 }}
-                  duration-200 
-                  ease-in-out 
-                  translate-y-1 
-                  group-hover:translate-y-0>
+                >
                   <img 
                     loading="lazy"
                     src="icons/Facebook.png"
@@ -72,17 +69,13 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
                 target="_blank"
                 rel="me noopener noreferrer"
                 aria-label="Visit Khan's LinkedIn profile"
-                className="flex items-center hover:text-white transition-colors duration-200"
+                className="flex items-center hover:text-white transition-colors duration-200 focus-visible:outline"
               >
-                <motion.div 
-                  transition-all 
+                <motion.div
                   initial={{ y: 10, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.4 }}
-                  duration-200 
-                  ease-in-out 
-                  translate-y-1 
-                  group-hover:translate-y-0>
+                >
                   <img
                     loading="lazy"
                     src="icons/LinkedIn.png"
@@ -99,17 +92,13 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
                 target="_blank"
                 rel="me noopener noreferrer"
                 aria-label="Visit Khan's GitHub profile"
-                className="flex items-center hover:text-white transition-colors duration-200"
+                className="flex items-center hover:text-white transition-colors duration-200 focus-visible:outline"
               >
-                <motion.div 
-                  transition-all 
+                <motion.div
                   initial={{ y: 10, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.4 }}
-                  duration-200 
-                  ease-in-out 
-                  translate-y-1 
-                  group-hover:translate-y-0>
+                >
                   <img
                     loading="lazy"
                     src="icons/GitHub.png"
@@ -130,21 +119,21 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
             For professional inquiries or collaboration opportunities:
           </p>
           <p className="text-sm mb-2">
-            📞 +81-70-4381-4193
+            📞 <a href="tel:+817043814193" className="underline hover:text-white focus-visible:outline">+81-70-4381-4193</a>
           </p>
           <p className="text-sm">
-            📧 <a href="mailto:lone.wolf.mahmud@gmail.com" className="underline hover:text-white">lone.wolf.mahmud@gmail.com</a>
+            📧 <a href="mailto:lone.wolf.mahmud@gmail.com" className="underline hover:text-white focus-visible:outline">lone.wolf.mahmud@gmail.com</a>
           </p>
         </div>
       </div>
       {quizState === QuizState.Welcome && (
         
         <motion.div
-        className="fixed bottom-0 left-0 right-0 z-20 flex flex-col md:flex-row items-center justify-center text-center bg-black text-white gap-4 pb-10 pt-2"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+          className="fixed bottom-0 left-0 right-0 z-20 flex flex-col md:flex-row items-center justify-center text-center bg-black text-white gap-4 pb-10 pt-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
         <p className="text-gray-200 text-sm md:text-base">
           Click Start to continue your Kanji journey...
         </p>
