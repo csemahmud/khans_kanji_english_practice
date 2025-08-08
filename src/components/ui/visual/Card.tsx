@@ -24,7 +24,7 @@ export const Card: React.FC<CardProps> = ({
   variant = "default",
 }) => {
   const baseStyles =
-    "rounded-xl px-3 py-4 sm:px-6 sm:py-6 w-full border shadow transition-all duration-300";
+    "rounded-xl px-3 py-2 sm:px-6 sm:py-6 w-full border shadow transition-all duration-300";
 
   const variantStyles: Record<string, string> = {
     default: "bg-white text-gray-900 border-gray-200",
@@ -37,31 +37,31 @@ export const Card: React.FC<CardProps> = ({
   const iconMap: Record<string, JSX.Element> = {
     correct: (
       <CheckCircleIcon
-        className="h-5 w-5 sm:h-6 sm:w-6 text-green-400"
+        className="h-0 w-0 sm:h-6 sm:w-6 text-green-400"
         aria-hidden="true"
       />
     ),
     incorrect: (
       <ExclamationCircleIcon
-        className="h-5 w-5 sm:h-6 sm:w-6 text-red-400"
+        className="h-0 w-0 sm:h-6 sm:w-6 text-red-400"
         aria-hidden="true"
       />
     ),
     default: (
       <InformationCircleIcon
-        className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400"
+        className="h-0 w-0 sm:h-6 sm:w-6 text-blue-400"
         aria-hidden="true"
       />
     ),
     answer_choices: (
       <InformationCircleIcon
-        className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400"
+        className="h-0 w-0 sm:h-6 sm:w-6 text-blue-400"
         aria-hidden="true"
       />
     ),
     dark: (
       <InformationCircleIcon
-        className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-400"
+        className="h-0 w-0 sm:h-6 sm:w-6 text-yellow-400"
         aria-hidden="true"
       />
     ),
@@ -96,7 +96,7 @@ export const Card: React.FC<CardProps> = ({
       {/* Header */}
       {title && (
         <header
-          className="flex flex-col sm:flex-row items-start sm:items-center justify-center sm:justify-center text-center sm:text-left gap-2 sm:gap-3 mb-3 sm:mb-4"
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-center sm:justify-center text-center sm:text-center gap-2 sm:gap-3 mb-1 sm:mb-4"
           aria-label="Card header"
         >
           <div className="flex-shrink-0">{iconMap[variant]}</div>
@@ -128,7 +128,7 @@ export const Card: React.FC<CardProps> = ({
       {children && (
         <section
           aria-label="Card content"
-          className="mb-2 sm:mb-4 text-sm sm:text-base break-words"
+          className="mb-1 sm:mb-4 text-sm sm:text-base break-words"
         >
           {children}
         </section>
@@ -137,7 +137,7 @@ export const Card: React.FC<CardProps> = ({
       {/* Footer */}
       {footer && (
         <footer
-          className={`pt-3 sm:pt-4 border-t ${footerBorderColor}`}
+          className={`pt-1 sm:pt-4 border-t ${footerBorderColor}`}
           aria-label="Card footer"
         >
           <div className="text-sm sm:text-base break-words">{footer}</div>

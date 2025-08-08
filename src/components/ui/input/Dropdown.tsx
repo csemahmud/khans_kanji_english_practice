@@ -45,7 +45,7 @@ export const Dropdown = <T extends string | number | null>({
       {label && (
         <label
           htmlFor={selectId}
-          className="block mb-2 text-gray-700 text-sm font-semibold"
+          className="block mb-1 text-gray-700 text-sm font-semibold"
         >
           {label}
         </label>
@@ -62,7 +62,7 @@ export const Dropdown = <T extends string | number | null>({
           }}
           aria-label={ariaLabel || (typeof label === "string" ? label : undefined)}
           aria-describedby={ariaDescribedBy}
-          className="appearance-none w-full bg-gray-800 text-white text-sm sm:text-base px-4 py-3 pr-10 rounded-lg border border-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+          className="appearance-none w-full bg-gray-800 text-white text-sm sm:text-base py-2 pl-3 pr-10 rounded-lg border border-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
           whileHover={{ scale: 1.01 }}
           whileFocus={{ scale: 1.01 }}
         >

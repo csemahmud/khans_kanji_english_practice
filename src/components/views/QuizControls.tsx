@@ -97,7 +97,7 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
         footer={
           <span
             tabIndex={0}
-            className="text-sm text-gray-600 dark:text-gray-300 mt-1 block"
+            className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-1 block"
             title={`Currently selected mode is ${mode === QuestionMode.JP_TO_EN ? '漢字 TO EN' : 'EN TO 漢字'}`}
           >
             Mode: {mode}
@@ -142,7 +142,7 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
         footer={
           <span
             tabIndex={0}
-            className="text-sm text-gray-600 dark:text-gray-300 mt-1 block"
+            className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-1 block"
             title={`Current JLPT Level: ${level ?? 'All Levels Combined'}`}
           >
             Level: {level ?? 'All Levels Combined'}
