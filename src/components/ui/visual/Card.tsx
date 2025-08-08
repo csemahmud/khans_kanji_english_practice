@@ -24,7 +24,7 @@ export const Card: React.FC<CardProps> = ({
   variant = "default",
 }) => {
   const baseStyles =
-    "rounded-2xl px-6 py-6 sm:py-2 w-full border shadow transition-all duration-300";
+    "rounded-xl px-3 py-4 sm:px-6 sm:py-6 w-full border shadow transition-all duration-300";
 
   const variantStyles: Record<string, string> = {
     default: "bg-white text-gray-900 border-gray-200",
@@ -37,37 +37,32 @@ export const Card: React.FC<CardProps> = ({
   const iconMap: Record<string, JSX.Element> = {
     correct: (
       <CheckCircleIcon
-        className="h-0 sm:h-6 w-0 sm:w-6 text-green-400"
+        className="h-5 w-5 sm:h-6 sm:w-6 text-green-400"
         aria-hidden="true"
-        role="presentation"
       />
     ),
     incorrect: (
       <ExclamationCircleIcon
-        className="h-0 sm:h-6 w-0 sm:w-6 text-red-400"
+        className="h-5 w-5 sm:h-6 sm:w-6 text-red-400"
         aria-hidden="true"
-        role="presentation"
       />
     ),
     default: (
       <InformationCircleIcon
-        className="h-0 sm:h-6 w-0 sm:w-6 text-blue-400"
+        className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400"
         aria-hidden="true"
-        role="presentation"
       />
     ),
     answer_choices: (
       <InformationCircleIcon
-        className="h-0 sm:h-6 w-0 sm:w-6 text-blue-400"
+        className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400"
         aria-hidden="true"
-        role="presentation"
       />
     ),
     dark: (
       <InformationCircleIcon
-        className="h-0 sm:h-6 w-0 sm:w-6 text-yellow-400"
+        className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-400"
         aria-hidden="true"
-        role="presentation"
       />
     ),
   };
@@ -78,11 +73,16 @@ export const Card: React.FC<CardProps> = ({
       : "border-gray-200";
 
   const widthClass =
-    variant === "answer_choices" || variant === "dark" || variant === "correct" || variant === "incorrect"
-      ? "max-w-[95%] sm:max-w-2xl md:max-w-3xl"
-      : "max-w-md";
+    variant === "answer_choices" ||
+    variant === "dark" ||
+    variant === "correct" ||
+    variant === "incorrect"
+      ? "max-w-full sm:max-w-2xl md:max-w-3xl"
+      : "max-w-full sm:max-w-md";
 
-  const titleId = title ? `card-title-${Math.random().toString(36).substr(2, 9)}` : undefined;
+  const titleId = title
+    ? `card-title-${Math.random().toString(36).substr(2, 9)}`
+    : undefined;
 
   return (
     <motion.article
@@ -96,21 +96,23 @@ export const Card: React.FC<CardProps> = ({
       {/* Header */}
       {title && (
         <header
-          className="flex items-center justify-center text-center gap-3 mb-1 sm:mb-4"
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-center sm:justify-center text-center sm:text-left gap-2 sm:gap-3 mb-3 sm:mb-4"
           aria-label="Card header"
         >
-          <div>{iconMap[variant]}</div>
-          <div>
+          <div className="flex-shrink-0">{iconMap[variant]}</div>
+          <div className="w-full">
             <h3
               id={titleId}
-              className="text-lg sm:text-xl font-semibold leading-tight"
+              className="text-base sm:text-lg md:text-xl font-semibold leading-tight"
             >
               {title}
             </h3>
             {description && (
               <p
                 className={`text-sm mt-1 break-words ${
-                  variant === "dark" || variant === "correct" || variant === "incorrect"
+                  variant === "dark" ||
+                  variant === "correct" ||
+                  variant === "incorrect"
                     ? "text-gray-300"
                     : "text-gray-600"
                 }`}
@@ -124,7 +126,10 @@ export const Card: React.FC<CardProps> = ({
 
       {/* Body */}
       {children && (
-        <section aria-label="Card content" className="mb-1 sm:mb-4">
+        <section
+          aria-label="Card content"
+          className="mb-2 sm:mb-4 text-sm sm:text-base break-words"
+        >
           {children}
         </section>
       )}
@@ -132,7 +137,7 @@ export const Card: React.FC<CardProps> = ({
       {/* Footer */}
       {footer && (
         <footer
-          className={`pt-4 border-t ${footerBorderColor}`}
+          className={`pt-3 sm:pt-4 border-t ${footerBorderColor}`}
           aria-label="Card footer"
         >
           <div className="text-sm sm:text-base break-words">{footer}</div>

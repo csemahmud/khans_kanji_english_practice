@@ -4,12 +4,12 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 export type Option<T extends string | number | null> = {
   value: T;
-  label: ReactNode;       // Original JSX or string label
-  stringLabel?: string;   // Optional fallback for JSX-based labels
+  label: ReactNode;
+  stringLabel?: string;
 };
 
 interface DropdownProps<T extends string | number | null> {
-  label?: string;
+  label?: React.ReactNode;
   options: Option<T>[];
   selected: T;
   onChange: (value: T) => void;
@@ -37,15 +37,15 @@ export const Dropdown = <T extends string | number | null>({
   const getOptionLabel = (opt: Option<T>) => {
     if (typeof opt.label === "string") return opt.label;
     if (opt.stringLabel) return opt.stringLabel;
-    return String(opt.value ?? "--SELECT--"); // fallback
+    return String(opt.value ?? "--SELECT--");
   };
 
   return (
-    <div className={`w-full max-w-xs ${className}`}>
+    <div className={`w-full max-w-sm ${className}`}>
       {label && (
         <label
           htmlFor={selectId}
-          className="block mb-1 text-gray-700 dark:text-gray-300 text-base font-semibold tracking-wide drop-shadow-sm"
+          className="block mb-2 text-gray-700 text-sm font-semibold"
         >
           {label}
         </label>
@@ -60,24 +60,26 @@ export const Dropdown = <T extends string | number | null>({
             const value = e.target.value === "" ? null : e.target.value;
             onChange(value as T);
           }}
-          aria-label={ariaLabel || label}
+          aria-label={ariaLabel || (typeof label === "string" ? label : undefined)}
           aria-describedby={ariaDescribedBy}
-          className="appearance-none w-full bg-gray-800 text-white text-sm py-2 pl-3 pr-10 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          whileHover={{ scale: 1.02 }}
-          whileFocus={{ scale: 1.02 }}
+          className="appearance-none w-full bg-gray-800 text-white text-sm sm:text-base px-4 py-3 pr-10 rounded-lg border border-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+          whileHover={{ scale: 1.01 }}
+          whileFocus={{ scale: 1.01 }}
         >
           {options.map((opt) => (
             <option
               key={String(opt.value)}
               value={opt.value === null ? "" : opt.value}
-              className={opt.value === null ? "text-gray-400" : ""}
+              className={`text-sm sm:text-base ${
+                opt.value === null ? "text-gray-400" : "text-white"
+              }`}
             >
               {getOptionLabel(opt)}
             </option>
           ))}
         </motion.select>
 
-        <ChevronDownIcon className="absolute right-3 top-2.5 h-5 w-5 text-gray-400 pointer-events-none" />
+        <ChevronDownIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
       </div>
 
       {ariaDescribedBy && (

@@ -4,6 +4,8 @@ import { AnswerChoices, AnswerFeedback } from '@/components/views';
 import type { KanjiQuestion, Score } from '@/models/types/interfaces';
 import type { QuestionMode } from '@/models/types/enums';
 import { motion } from 'framer-motion';
+import { QUIZ_TITLE } from '@/models/constants';
+import { Helmet } from 'react-helmet-async';
 
 interface KanjiQuizPlayProps {
   qLength: number;
@@ -72,6 +74,18 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
+      {/* ✅ Meta Tags */}
+      <Helmet>
+        <title>{QUIZ_TITLE} | Play</title>
+        <meta name="description" content="Test your Japanese Kanji knowledge with this interactive quiz app. Supports JLPT N5 to N1 levels." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#1f2937" />
+        <meta property="og:title" content={QUIZ_TITLE} />
+        <meta property="og:description" content="Master Kanji with fun, fast-paced quizzes! Designed for learners at all JLPT levels." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/screenshots/app_demo_kanji.png" />
+      </Helmet>
+
       {/* Progress Indicator */}
       <div className="text-center text-sm text-gray-300 tracking-wide">
         Question <span className="font-semibold text-white/90">{currentIndex + 1}</span> of {qLength}

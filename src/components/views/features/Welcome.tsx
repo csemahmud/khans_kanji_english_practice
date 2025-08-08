@@ -1,9 +1,16 @@
 import { Card, ImageWithFallback } from '@/components/ui';
-import { CORRECT_POINT, WRONG_POINT, SKIP_POINT, QUIZ_TITLE, TIME_LIMIT } from '@/models/constants';
+import {
+  CORRECT_POINT,
+  WRONG_POINT,
+  SKIP_POINT,
+  QUIZ_TITLE,
+  TIME_LIMIT,
+} from '@/models/constants';
 import { motion } from 'framer-motion';
 import { resolveFallbackImage, resolveProfileImage } from '@/utils';
+import { Helmet } from 'react-helmet-async';
 
-const getFortmattedPointString = (point: number): string => {
+const getFormattedPointString = (point: number): string => {
   return point > 0 ? '+' + point : point.toString();
 };
 
@@ -35,12 +42,55 @@ export function formatToMinute(sec: number): string {
 const Welcome = () => {
   return (
     <motion.div
-      className="min-h-screen bg-gray-900 text-white flex flex-col justify-center items-center px-4 py-10"
+      className="min-h-screen bg-gray-900 text-white flex flex-col items-center px-4 py-6 sm:py-8"
       variants={containerVariant}
       initial="hidden"
       animate="visible"
     >
-      <div className="w-full max-w-3xl pb-36 md:pb-0">
+
+      {/* ✅ Meta Tags */}
+      <Helmet>
+        <title>{QUIZ_TITLE} | Welcome</title>
+        <meta name="description" content="Test your Japanese Kanji knowledge with this interactive quiz app. Supports JLPT N5 to N1 levels." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#1f2937" />
+        <meta property="og:title" content={QUIZ_TITLE} />
+        <meta property="og:description" content="Master Kanji with fun, fast-paced quizzes! Designed for learners at all JLPT levels." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/screenshots/app_demo_kanji.png" />
+      </Helmet>
+      
+      <div className="w-full max-w-3xl space-y-6">
+
+        {/* Developer Info: Now placed at top */}
+        <motion.section
+          variants={itemVariant}
+          aria-labelledby="developer-heading"
+          className="flex flex-col sm:flex-row items-center gap-4 bg-gray-800 border border-gray-700 p-4 sm:p-6 rounded-lg shadow-md"
+        >
+          <ImageWithFallback
+            src={resolveProfileImage('khan_1.JPG')}
+            fallbackSrc={resolveFallbackImage('profile_fallback.jpg')}
+            alt="Khan Mahmudul Hasan"
+            className="w-28 h-36 sm:w-36 sm:h-44 object-cover rounded-xl border-2 border-gray-700 shadow-md"
+          />
+          <div className="flex-1 space-y-2 text-sm sm:text-base">
+            <h1
+              id="developer-heading"
+              className="text-xl sm:text-2xl font-bold text-white"
+            >
+              Developer: Khan Mahmudul Hasan
+            </h1>
+            <p className="text-gray-300 leading-relaxed">
+              B.Sc. and M.Sc. in Computer Science and Engineering. Passionate about education,
+              technology, and cross-cultural communication. Living in Japan and developing tools for
+              Japanese language learners. Skilled in English, Japanese (JLPT N3), React, TypeScript,
+              and modern web technologies.
+            </p>
+          </div>
+        </motion.section>
+
+        {/* Welcome / Rules Section */}
         <motion.div variants={itemVariant}>
           <Card
             title={`Welcome to ${QUIZ_TITLE}`}
@@ -55,38 +105,16 @@ const Welcome = () => {
                   <li>Choose JLPT Level (N5–N1). If unselected, questions are combined.</li>
                   <li>Quiz time: {formatToMinute(TIME_LIMIT)} minute</li>
                   <li>
-                    Marks — Correct: {getFortmattedPointString(CORRECT_POINT)}, Wrong: {getFortmattedPointString(WRONG_POINT)}, Skipped: {getFortmattedPointString(SKIP_POINT)}
+                    Marks — Correct: {getFormattedPointString(CORRECT_POINT)},
+                    Wrong: {getFormattedPointString(WRONG_POINT)},
+                    Skipped: {getFormattedPointString(SKIP_POINT)}
                   </li>
                   <li>Skip if unsure. Wrong answers deduct points.</li>
                 </ul>
               </div>
             }
           >
-            <>
-
-              {/* Developer Bio Section */}
-              <section
-                aria-labelledby="developer-heading"
-                className="flex flex-col md:flex-row items-center gap-6 max-w-5xl w-full mb-10"
-              >
-                <ImageWithFallback
-                  src={resolveProfileImage("khan_1.JPG")}
-                  fallbackSrc={resolveFallbackImage("profile_fallback.jpg")}
-                  alt="Khan Mahmudul Hasan"
-                  className="w-32 h-40 md:w-40 md:h-52 object-cover rounded-xl border-2 border-gray-700 shadow-md"
-                />
-                <div className="flex-1 space-y-2 prose prose-invert prose-sm md:prose-base font-light">
-                  <h1 id="developer-heading" className="text-2xl md:text-3xl font-bold text-white">
-                    Developer: Khan Mahmudul Hasan
-                  </h1>
-                  <p>
-                    B.Sc. and M.Sc. in Computer Science and Engineering. Passionate about education,
-                    technology, and cross-cultural communication. Living in Japan and developing tools for Japanese language learners.
-                    Skilled in English, Japanese (JLPT N3), React, TypeScript, and modern web technologies.
-                  </p>
-                </div>
-              </section>
-            </>
+            <></> {/* No children */}
           </Card>
         </motion.div>
       </div>
