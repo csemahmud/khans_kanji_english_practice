@@ -1,3 +1,4 @@
+import Logo from "@/assets/Logo.png";
 import { forwardRef, useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -39,6 +40,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
     return (
       <AnimatePresence>
         <motion.header
+          id="header1"
           ref={headerRef}
           role="banner"
           key="header"
@@ -71,14 +73,19 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
               'text-fluid-xl'
             )}
           >
-            <span
-              role="img"
-              aria-hidden="true"
-              aria-label="flag"
-              className="text-fluid-xl"
+            <motion.div  
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.4 }}
+              className="w-6 h-6 sm:w-9 sm:h-9 md:w-12 md:h-12 mr-0 sm:mr-2 rounded-full flex items-center justify-center bg-[radial-gradient(circle,white_40%,#4b5563_100%)] shadow-md"
             >
-              🎌
-            </span>
+              <img
+                loading="lazy"
+                src={Logo}
+                alt="Khan's Logo"
+                className="w-4 h-4 sm:w-9 sm:h-9 md:w-8 md:h-8 object-cover rounded-full"
+              />
+            </motion.div>
             <span
               className={clsx(
                 'bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent',

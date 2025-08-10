@@ -1,4 +1,6 @@
 :root {
+  --header-height: 64px; /* match your base py and logo size */
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -94,6 +96,9 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
+
+    /* Keep variable here too for safety */
+    --header-height: 64px;
   }
   a:hover {
     color: #747bff;

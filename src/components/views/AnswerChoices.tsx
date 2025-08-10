@@ -2,7 +2,7 @@ import React from "react";
 import { QuestionMode } from "@/models/types/enums";
 
 interface Props {
-  title: string;
+  title?: string;
   choices: string[];
   selected: string | null;
   currentIndex: number;
@@ -27,21 +27,22 @@ export const AnswerChoices: React.FC<Props> = ({
       <p className="text-sm font-semibold text-gray-300">{labelText}</p>
 
       {/* Optional Kanji Title */}
-      {variant === "Meaning" && (
+      {title && (
         <div className="text-6xl font-bold text-gray-100 tracking-wide">
           {title}
         </div>
       )}
 
       {/* Choice Buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-[#3b3b40] rounded-lg p-1 sm:p-2">
         {choices.map((choice) => {
           const isSelected = selected === choice;
           return (
             <button
               key={choice}
               onClick={() => onSelect(choice)}
-              className={`w-full px-4 py-2 rounded-lg text-sm font-semibold border transition-all duration-200 focus:outline-none
+              className={`w-full px-4 py-2 rounded-lg text-sm font-semibold border transition-all duration-200 
+                focus:outline-none  focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
                 ${
                   isSelected
                     ? "bg-blue-600 text-white border-blue-600 shadow-md"

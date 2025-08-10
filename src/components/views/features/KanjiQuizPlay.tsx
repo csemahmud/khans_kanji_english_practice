@@ -54,6 +54,21 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
     }
   }, [showAnswer]);
 
+  useEffect(() => {
+    if (topViewDivRef.current) {
+      const header = document.querySelector('#header1'); // or your Header element's class/ID
+      const headerHeight = header ? header.clientHeight : 0;
+
+      const elementTop = topViewDivRef.current.getBoundingClientRect().top + window.scrollY;
+      const scrollPosition = elementTop - headerHeight;
+
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: 'smooth'
+      });
+    }
+  }, [/* your trigger dependency */]);
+
   // ✅ Guard clause
   if (!currentQuestion) {
     return (
@@ -132,7 +147,6 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
             aria-label="Answer choices for meaning and pronunciation"
           >
             <AnswerChoices
-              title={currentQuestion.prompt}
               choices={currentQuestion.answer.meaning.choices}
               selected={selectedMeaning}
               currentIndex={currentIndex}
@@ -141,7 +155,6 @@ const KanjiQuizPlay: React.FC<KanjiQuizPlayProps> = ({
               onSelect={setSelectedMeaning}
             />
             <AnswerChoices
-              title=""
               choices={currentQuestion.answer.reading.choices}
               selected={selectedReading}
               currentIndex={currentIndex}

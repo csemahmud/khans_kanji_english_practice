@@ -79,15 +79,20 @@ export const useKanjiQuiz = (kanjiList: KanjiType[], mode: QuestionMode) => {
     );
   };
 
-  // Scroll to topViewDivRef
+  // Scroll to topViewDivRef but offset by header height
   const scrollToTop = () => {
     setTimeout(() => {
-      topViewDivRef.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest',
-      });
-    }, 100); // Adjust delay as needed
+      const header = document.querySelector('#header1'); // Adjust selector to match Header.tsx
+      const headerHeight = header ? (header as HTMLElement).offsetHeight : 0;
+
+      if (topViewDivRef.current) {
+        const elementTop = topViewDivRef.current.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: elementTop - headerHeight, // offset by header height
+          behavior: 'smooth',
+        });
+      }
+    }, 100);
   };
 
   const handleAnswer = () => {

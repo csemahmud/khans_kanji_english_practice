@@ -93,11 +93,11 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
       {/* Quiz Mode Selection */}
       <Card
         aria-label="Quiz Mode Card"
-        className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold rounded-lg shadow-md p-4"
+        className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold rounded-lg shadow-md px-4 py-0 sm:py-4"
         footer={
           <span
             tabIndex={0}
-            className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-1 block"
+            className="text-sm sm:text-base text-gray-600 dark:text-gray-300 pb-1 block"
             title={`Currently selected mode is ${mode === QuestionMode.JP_TO_EN ? '漢字 TO EN' : 'EN TO 漢字'}`}
           >
             Mode: {mode}
@@ -105,7 +105,7 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
         }
       >
         <Dropdown<QuestionMode>
-          label={<h3 className="text-base sm:text-lg font-semibold mb-2 flex items-center gap-2">
+          label={<h3 className="text-base sm:text-lg font-semibold mb-0 sm:mb-2 flex items-center gap-2">
             <HiOutlineGlobeAlt className="text-xl" />Select Quiz Mode
           </h3>}
           options={[
@@ -138,11 +138,11 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
       {/* JLPT Level Selection */}
       <Card
         aria-label="JLPT Level Card"
-        className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold rounded-lg shadow-md p-4"
+        className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold rounded-lg shadow-md px-4 py-0 sm:py-4"
         footer={
           <span
             tabIndex={0}
-            className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-1 block"
+            className="text-sm sm:text-base text-gray-600 dark:text-gray-300 pb-1 block"
             title={`Current JLPT Level: ${level ?? 'All Levels Combined'}`}
           >
             Level: {level ?? 'All Levels Combined'}
@@ -150,7 +150,7 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
         }
       >
         <Dropdown<JLPTLevel | null>
-          label={<h3 className="text-base sm:text-lg font-semibold mb-2 flex items-center gap-2">
+          label={<h3 className="text-base sm:text-lg font-semibold mb-0 sm:mb-2 flex items-center gap-2">
             <FaRegListAlt className="text-xl" /> Select JLPT Level
           </h3>}
           options={[

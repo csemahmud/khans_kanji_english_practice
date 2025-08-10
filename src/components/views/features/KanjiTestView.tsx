@@ -118,7 +118,7 @@ const KanjiTestView: React.FC<KanjiTestViewProps> = ({
       <BackgroundTexture />
       <Watermarks />
 
-      <main className="py-4 px-3 sm:px-6 md:px-8 flex flex-col items-center gap-4 relative z-10">
+      <main className="py-2 sm:py-5 px-3 sm:px-6 md:px-8 flex flex-col items-center gap-4 relative z-10">
         {/* 🎛 Controls above content for better mobile stacking */}
         <div className="w-full max-w-4xl">
           <QuizControls
