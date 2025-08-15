@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Card, Dropdown } from '@/components/ui';
-import { QuestionMode, JLPTLevel } from '@/models/types/enums';
+import { QuestionMode, JLPTLevel, QuizState } from '@/models/types/enums';
 import Swal from 'sweetalert2';
 import { HiOutlineGlobeAlt, HiOutlineAdjustments } from 'react-icons/hi';
 import { FaRegListAlt } from 'react-icons/fa';
@@ -11,6 +11,7 @@ interface Props {
   level: JLPTLevel | null;
   setLevel: (level: JLPTLevel | null) => void;
   currentIndex: number;
+  quizState: QuizState;
 }
 
 const confirmChange = async (title: string, text: string, confirmText: string): Promise<boolean> => {
@@ -45,12 +46,15 @@ const confirmReset = async (): Promise<void> => {
   });
 };
 
-export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, currentIndex }) => {
+export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, currentIndex, quizState }) => {
+  
+  const canChangeWithoutConfirm = ((currentIndex === 0) || (quizState !== QuizState.Play));
+  
   const handleModeChange = useCallback(
     async (val: QuestionMode) => {
       if (!val || !Object.values(QuestionMode).includes(val as QuestionMode)) return;
 
-      if (currentIndex === 0) {
+      if (canChangeWithoutConfirm) {
         setMode(val);
       } else {
         const label = val === QuestionMode.JP_TO_EN ? '漢字 TO EN' : 'EN TO 漢字';
@@ -65,12 +69,12 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
         }
       }
     },
-    [setMode, currentIndex]
+    [setMode, currentIndex, quizState]
   );
 
   const handleLevelChange = useCallback(
     async (val: JLPTLevel | null) => {
-      if (currentIndex === 0) {
+      if (canChangeWithoutConfirm) {
         setLevel(val);
       } else {
         const label = val ?? 'Combined';
@@ -85,7 +89,7 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
         }
       }
     },
-    [setLevel, currentIndex]
+    [setLevel, currentIndex, quizState]
   );
 
   return (
@@ -93,7 +97,7 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
       {/* Quiz Mode Selection */}
       <Card
         aria-label="Quiz Mode Card"
-        className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold rounded-lg shadow-md px-4 py-0 sm:py-4"
+        className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-base sm:text-lg font-bold rounded-lg shadow-md px-4 py-0 sm:py-4"
         footer={
           <span
             tabIndex={0}
@@ -132,13 +136,14 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
           onChange={(val) => {
             void handleModeChange(val);
           }}
+          aria-label="Select Quiz Mode"
         />
       </Card>
 
       {/* JLPT Level Selection */}
       <Card
         aria-label="JLPT Level Card"
-        className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-lg font-bold rounded-lg shadow-md px-4 py-0 sm:py-4"
+        className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-base sm:text-lg font-bold rounded-lg shadow-md px-4 py-0 sm:py-4"
         footer={
           <span
             tabIndex={0}
@@ -173,6 +178,7 @@ export const QuizControls: React.FC<Props> = ({ mode, setMode, level, setLevel, 
           onChange={(val) => {
             void handleLevelChange(val);
           }}
+          aria-label="Select JLPT Level"
         />
       </Card>
     </div>
