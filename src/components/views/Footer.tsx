@@ -109,6 +109,29 @@ export const Footer: React.FC<FooterProps> = ({quizState, handleStartPlay }) => 
                 GitHub: @csemahmud
               </a>
             </li>
+            <li>
+              <a
+                href="https://csemahmud.github.io/dark-claw/"
+                target="_blank"
+                rel="me noopener noreferrer"
+                aria-label="Visit Dark Claw, Khan's original fitness cosplay project"
+                className="flex items-center hover:text-white transition-colors duration-200 focus-visible:outline"
+              >
+                <motion.div
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <img
+                    loading="lazy"
+                    src="icons/DarkClaw.png"
+                    alt="Dark Claw"
+                    className="w-6 h-6 mr-2 opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+                  />
+                  </motion.div>
+                Dark Claw: Khan's Cosplay
+              </a>
+            </li>
           </ul>
         </div>
 

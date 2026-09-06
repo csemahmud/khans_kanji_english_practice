@@ -1,4 +1,6 @@
 public/
+├── sitemap.xml
+├── robots.txt
 ├── docs/                       # Excel files (raw data sources)
 │   ├── kanji_n5.xlsx (In Progress: To Do Add more Kanji)
 │   ├── kanji_n4.xlsx (In Progress: To Do Add more Kanji)
