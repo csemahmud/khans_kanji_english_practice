@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://csemahmud.github.io/khans_kanji_english_practice/sitemap.xml
